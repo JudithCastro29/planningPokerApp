@@ -9,11 +9,11 @@
       </div>
     </div>
 
-    <div class="promedio">
-      Promedio:
-      <strong *ngIf="promedio !== null">
-        {{ promedio | number: '1.1-1' }}
+    <div class="promedio" *ngIf="promedio !== null">
+      <strong *ngIf="typeof promedio === 'number'">
+        Promedio: {{ promedio | number: '1.1-1' }}
       </strong>
+      <strong *ngIf="typeof promedio === 'string'"> {{ promedio }} </strong>
     </div>
   </div>
 </div>

@@ -50,6 +50,8 @@ import {
 } from '../../../utils/calculos-votacion';
 import { MensajeEmergenteService } from '../../../services/mensaje-emergente-service/mensaje-emergente-service';
 import { generarCartasSiNoExisten } from '../../../state/cartas/cartas.actions';
+import { calcularResumenVotacion } from '../../../utils/calculos-votacion';
+import { reiniciarCartasUsuarios } from '../../../state/cartas/cartas.actions';
 
 @Component({
   selector: 'app-mesa-votacion-page',
@@ -93,8 +95,9 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
   //para q se muestren las cartas
   cartasListas = signal(false);
 
-  promedioVotacion = computed(() => calcularPromedioVotacion(this.usuarios$()));
-
+  promedioVotacion = computed(() =>
+    calcularResumenVotacion(this.usuarios$(), this.modoCartas)
+  );
   votosPorCarta = computed(() => contarVotosPorCarta(this.usuarios$()));
 
   private subscriptions = new Subscription();
@@ -216,11 +219,19 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
 
   private onStorageEvent(event: StorageEvent) {
     if (!event.key) return;
-
     if (event.key === 'reiniciar-seleccion:' + this.nombrePartida) {
       const nuevoValor = Number(event.newValue) || Date.now();
       if (nuevoValor !== this.reiniciarSeleccion) {
         this.reiniciarSeleccion = nuevoValor;
+
+        // 🔁 Ejecuta el reinicio también en esta pestaña
+        this.store.dispatch(
+          reiniciarCartas({ nombrePartida: this.nombrePartida })
+        );
+
+        this.mensajeTodosHanVotado = false;
+        localStorage.removeItem('todos-han-votado:' + this.nombrePartida);
+        localStorage.setItem(`cartas-reveladas:${this.nombrePartida}`, 'false');
       }
     } else if (event.key === `cartas-reveladas:${this.nombrePartida}`) {
       try {
@@ -281,15 +292,18 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
 
   reiniciarPartida() {
     this.store.dispatch(reiniciarCartas({ nombrePartida: this.nombrePartida }));
+    this.store.dispatch(
+      reiniciarCartasUsuarios({ nombrePartida: this.nombrePartida })
+    ); // ← 💥 Esta es clave
+
     this.reiniciarSeleccion = Date.now();
     localStorage.setItem(
       'reiniciar-seleccion:' + this.nombrePartida,
       this.reiniciarSeleccion.toString()
     );
+
     this.mensajeTodosHanVotado = false;
     localStorage.removeItem('todos-han-votado:' + this.nombrePartida);
-
-    // Al reiniciar, también ocultar las cartas reveladas y sincronizar
     localStorage.setItem(`cartas-reveladas:${this.nombrePartida}`, 'false');
   }
 

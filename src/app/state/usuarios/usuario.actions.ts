@@ -34,3 +34,8 @@ export const setModoCartas = createAction(
   '[Cartas] Set Modo Cartas',
   props<{ modo: 'numeros' | 'letras' }>()
 );
+
+export const reiniciarCartasUsuarios = createAction(
+  '[Usuarios] Reiniciar cartas de los jugadores',
+  props<{ nombrePartida: string }>()
+);

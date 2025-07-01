@@ -26,7 +26,8 @@ export class MesaVotacionTemplateComponent {
   @Input() usuariosEnMesa: UsuarioEnMesa[] = [];
   @Input() cartas: string[] = [];
   @Input() cartasReveladas = false;
-  @Input() promedio: number | null = null;
+  @Input() promedio!: number | string | null;
+
   @Input() votos: Record<string, number> = {};
   @Input() mostrarResumen = false;
   @Input() animandoConteo = false;

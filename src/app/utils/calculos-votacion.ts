@@ -21,3 +21,30 @@ export function contarVotosPorCarta(
   }
   return votos;
 }
+
+export function calcularResumenVotacion(
+  usuarios: UsuarioEnMesa[],
+  modoCartas: 'numeros' | 'letras'
+): string {
+  const jugadores = usuarios.filter((u) => u.modo === 'jugador' && u.carta);
+
+  if (modoCartas === 'letras') {
+    const frecuencia: Record<string, number> = {};
+    for (const u of jugadores) {
+      const carta = u.carta!;
+      frecuencia[carta] = (frecuencia[carta] || 0) + 1;
+    }
+
+    const masVotada = Object.entries(frecuencia).sort(
+      (a, b) => b[1] - a[1]
+    )[0]?.[0];
+    return masVotada ?? '-';
+  } else {
+    const valores = jugadores
+      .map((u) => Number(u.carta))
+      .filter((n) => !isNaN(n));
+    if (valores.length === 0) return '-';
+    const promedio = valores.reduce((a, b) => a + b, 0) / valores.length;
+    return promedio.toFixed(2);
+  }
+}

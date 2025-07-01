@@ -48,3 +48,8 @@ export const reiniciarEstado = createAction('[Cartas] Reiniciar Estado');
 
 //oculktar resumen
 export const ocultarResumen = createAction('[Cartas] Ocultar Resumen');
+
+export const reiniciarCartasUsuarios = createAction(
+  '[Usuarios] Reiniciar cartas de los jugadores',
+  props<{ nombrePartida: string }>()
+);

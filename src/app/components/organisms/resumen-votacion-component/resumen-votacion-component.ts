@@ -8,8 +8,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './resumen-votacion-component.css',
 })
 export class ResumenVotacionComponent {
-  @Input() promedio: number | null = null;
   @Input() votos: Record<string, number> = {};
+  @Input() promedio!: string | number;
 
   cartasOrdenadas(): string[] {
     return Object.keys(this.votos).sort((a, b) => Number(a) - Number(b));

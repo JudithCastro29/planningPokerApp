@@ -8,6 +8,7 @@ import {
   delegarPropietario,
   actualizarUsuarios,
   reiniciarUsuarios,
+  reiniciarCartasUsuarios,
 } from './usuario.actions';
 import { UsuarioEnMesa, RolUsuario } from '../../models/usuario.model';
 
@@ -165,6 +166,27 @@ export const usuarioReducer = createReducer(
       ...state,
       usuarios,
       usuarioActual: usuarioActualEncontrado,
+    };
+  }),
+
+  on(reiniciarCartasUsuarios, (state, { nombrePartida }) => {
+    const usuariosActualizados = state.usuarios.map((u) =>
+      u.partida === nombrePartida ? { ...u, carta: '' } : u
+    );
+
+    const usuarioActualActualizado =
+      state.usuarioActual?.partida === nombrePartida
+        ? { ...state.usuarioActual, carta: '' }
+        : state.usuarioActual;
+
+    guardarUsuarios(usuariosActualizados, nombrePartida);
+    if (usuarioActualActualizado)
+      guardarUsuarioActual(usuarioActualActualizado);
+
+    return {
+      ...state,
+      usuarios: usuariosActualizados,
+      usuarioActual: usuarioActualActualizado,
     };
   }),
 

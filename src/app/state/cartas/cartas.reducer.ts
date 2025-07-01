@@ -70,26 +70,19 @@ export const cartasReducer = createReducer<CartasState>(
     };
   }),
 
-  on(CartasActions.reiniciarCartas, (state, { nombrePartida }) => {
-    const modoActual =
-      (localStorage.getItem('modo-cartas') as 'numeros' | 'letras') ||
-      'numeros';
-    const nuevasCartas = generarCartasAleatorias(modoActual);
-
+  on(CartasActions.reiniciarCartas, (state) => {
+    const nuevasCartas = generarCartasAleatorias(state.modoCartas);
     localStorage.setItem(
-      `cartas-${nombrePartida}`,
+      `cartas-${state.nombrePartida}`,
       JSON.stringify(nuevasCartas)
     );
-    localStorage.removeItem(`cartas-reveladas-${nombrePartida}`);
-    localStorage.removeItem(`resumen-visible-${nombrePartida}`);
-
+    localStorage.removeItem(`cartas-reveladas-${state.nombrePartida}`);
+    localStorage.removeItem(`resumen-visible-${state.nombrePartida}`);
     return {
       ...state,
       cartas: nuevasCartas,
       cartasReveladas: false,
       resumenVisible: false,
-      modoCartas: modoActual,
-      nombrePartida,
     };
   }),
 
