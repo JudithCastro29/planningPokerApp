@@ -1,0 +1,28 @@
+<div class="contenedor-formulario">
+  <form
+    class="form-crear-partida"
+    [formGroup]="form"
+    (ngSubmit)="crearPartida()"
+  >
+    <app-input-dark
+      [control]="nombrePartidaControl"
+      labelText="Nombre la partida"
+      inputId="nombre"
+      placeholder="Nombre de la partida"
+      type="text"
+      name="nombre"
+    ></app-input-dark>
+
+    <app-validacion-input
+      [control]="nombrePartidaControl"
+    ></app-validacion-input>
+
+    <app-button-dark
+      [texto]="'Crear Partida'"
+      [tipo]="'submit'"
+      [deshabilitado]="form.invalid"
+      (accion)="crearPartida()"
+      [ngClass]="'boton-crear-partida'"
+    ></app-button-dark>
+  </form>
+</div>

@@ -1,0 +1,55 @@
+.resumen-votacion {
+  position: absolute;
+  bottom: 32px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none; /* permite clics a través si es necesario */
+}
+
+.cartas-votadas-con-promedio {
+  display: flex;
+  align-items: center; /* alinea el promedio abajo como en la imagen */
+  gap: 48px; /* espacio entre cartas y promedio */
+
+  padding: 16px 32px;
+  border-radius: 20px;
+}
+
+.cartas-votadas {
+  display: flex;
+  gap: 24px;
+}
+
+.carta-resumen {
+  text-align: center;
+  color: white;
+}
+
+.carta-resumen .carta {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.carta-resumen .votos {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.promedio {
+  font-size: 16px;
+  color: #aaa;
+  text-align: right;
+  min-width: 120px;
+}
+
+.promedio strong {
+  font-size: 28px;
+  margin-left: 6px;
+  color: white;
+}

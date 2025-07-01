@@ -1,0 +1,9 @@
+<div class="modal-overlay">
+  <div class="modal-content">
+    <app-formulario-crear-usuario
+      [nombrePartida]="nombrePartida"
+      (usuarioCreado)="manejarUsuarioCreado($event)"
+      (cerrar)="cerrarModal()"
+    ></app-formulario-crear-usuario>
+  </div>
+</div>

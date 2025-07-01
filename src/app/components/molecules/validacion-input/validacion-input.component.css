@@ -1,0 +1,18 @@
+.mensaje-error {
+  color: #ffffff;
+  margin-top: 5px;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-items: left;
+}
+
+.mensaje-error small::before {
+  content: "!";
+  color: #ffffff;
+  margin-right: 4px;
+  font-weight: bold;
+  font-size: 18px;
+}

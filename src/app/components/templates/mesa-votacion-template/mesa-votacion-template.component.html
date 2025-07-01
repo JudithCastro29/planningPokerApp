@@ -1,0 +1,60 @@
+<!-- Componente de selección de cartas -->
+<app-seleccion-cartas-component
+  *ngIf="!mostrarResumen && usuarioActual"
+  [cartas]="cartas"
+  [usuarioActual]="usuarioActual"
+  [modoUsuario]="usuarioActual.modo"
+  [reiniciarSeleccion]="reiniciarSeleccion"
+  (cartaSeleccionada)="seleccionarCarta.emit($event)"
+></app-seleccion-cartas-component>
+
+<!-- Mesa con jugadores -->
+<div class="table">
+  <div class="border1"></div>
+
+  <div class="border2">
+    <ng-container *ngFor="let usuario of usuariosEnMesa; index as i">
+      <app-usuario-en-mesa-carta
+        [nombre]="usuario.nombre"
+        [modo]="usuario.modo"
+        [carta]="usuario.carta"
+        [mostrarCartas]="cartasReveladas"
+        [esUsuarioActual]="usuario.nombre === usuarioActual.nombre"
+        [ngStyle]="getPlayerStyle(i)"
+      ></app-usuario-en-mesa-carta>
+    </ng-container>
+  </div>
+
+  <!-- Controles de administrador -->
+  <div class="usuarios-mesa">
+    <app-controles-administrador-component
+      *ngIf="esPropietario"
+      [esPropietario]="true"
+      [cartasReveladas]="cartasReveladas"
+      [todosHanVotado]="todosHanVotado"
+      [animandoConteo]="animandoConteo"
+      [mostrarResumen]="mostrarResumen"
+      (revelar)="revelar.emit()"
+      (reiniciar)="reiniciar.emit()"
+      (contarVotos)="contarVotosClick.emit()"
+    ></app-controles-administrador-component>
+  </div>
+
+  <!-- Animación conteo -->
+  <div *ngIf="animandoConteo" class="animacion-conteo">
+    <div
+      class="anillo"
+      *ngFor="let i of [1, 2, 3, 4]; let j = index"
+      [style.animationDelay]="j * 0.15 + 's'"
+    ></div>
+    <div class="texto-conteo">Contando votos</div>
+  </div>
+</div>
+
+<!-- Resumen de votación -->
+<div class="contenedor-resumen-abajo" *ngIf="mostrarResumen">
+  <app-resumen-votacion-component
+    [votos]="votos"
+    [promedio]="promedio"
+  ></app-resumen-votacion-component>
+</div>

@@ -1,0 +1,27 @@
+.contenedor-formulario {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-crear-partida {
+  width: 514px;
+  height: 294px;
+  border-radius: 25px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  justify-content: center;
+  align-items: center;
+}
+app-button-dark:active {
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+  border-radius: 50px;
+}
+
+app-button-dark:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

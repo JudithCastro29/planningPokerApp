@@ -1,0 +1,27 @@
+<div class="contenedor-formulario">
+  <form
+    class="form-crear-usuario"
+    [formGroup]="form"
+    (ngSubmit)="crearUsuario()"
+  >
+    <app-input-dark
+      [control]="nombreControl"
+      labelText="Tu nombre"
+      inputId="nombre"
+      placeholder="Escribe tu nombre"
+      type="text"
+      name="nombre"
+    ></app-input-dark>
+
+    <app-validacion-input [control]="nombreControl"></app-validacion-input>
+
+    <app-selector-modo-visualizacion formControlName="modoVisualizacion" />
+    <app-validacion-input [control]="modoControl"></app-validacion-input>
+
+    <app-button-dark
+      [texto]="'Contiuar'"
+      [tipo]="'submit'"
+      [deshabilitado]="form.invalid"
+    ></app-button-dark>
+  </form>
+</div>

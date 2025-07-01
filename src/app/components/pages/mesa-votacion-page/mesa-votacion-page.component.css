@@ -1,0 +1,62 @@
+.barra-superior {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 2rem;
+  color: white;
+}
+
+.icono-izquierda img {
+  height: 60px;
+  width: 60px;
+}
+
+.nombre-partida {
+  font-weight: 700;
+  font-size: 26px;
+  text-align: center;
+}
+
+.acciones-derecha {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.iniciales-boton {
+  width: 4.5vw;
+  height: 4.5vw;
+  max-width: 56px;
+  max-height: 56px;
+  min-width: 36px;
+  min-height: 36px;
+  background: rgba(189, 189, 255, 1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 1000;
+  color: rgba(51, 0, 114, 1);
+  font-size: 1rem;
+  line-height: 100%;
+  margin-bottom: 4px;
+}
+
+.iniciales-boton:hover {
+  box-shadow: 0 0 20px white;
+}
+
+.btn-invitar {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  width: 154px;
+  height: 32px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-invitar:hover {
+  box-shadow: 0 0 20px white;
+}

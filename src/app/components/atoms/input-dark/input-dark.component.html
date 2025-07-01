@@ -1,0 +1,10 @@
+<label *ngIf="labelText" [for]="inputId" class="label-dark">{{
+  labelText
+}}</label>
+<input
+  [formControl]="control"
+  [placeholder]="placeholder"
+  [type]="type"
+  [name]="name"
+  class="input-dark"
+/>

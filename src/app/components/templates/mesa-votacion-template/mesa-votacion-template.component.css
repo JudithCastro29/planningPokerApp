@@ -1,0 +1,141 @@
+.usuarios-mesa {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.usuario,
+.usuario-actual {
+  position: absolute;
+  text-align: center;
+}
+
+.table {
+  position: absolute;
+  width: 603px;
+  height: 345px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 276px;
+  border: 2px solid rgba(100, 41, 205, 1);
+  box-shadow: 0px 0px 20px 0px rgba(189, 189, 255, 0.2) inset;
+  box-shadow: 0px 0px 15px 0px rgba(100, 41, 205, 1);
+  background-color: transparent;
+}
+
+.border1 {
+  position: absolute;
+  justify-content: center;
+  width: 555px;
+  height: 298px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 276px;
+  border: 2px solid rgba(100, 41, 205, 1);
+  box-shadow: 0px 0px 20px 0px rgba(189, 189, 255, 0.6) inset;
+  box-shadow: 0px 12px 24px 0px rgba(100, 41, 205, 0.6);
+}
+.border2 {
+  position: absolute;
+  justify-content: center;
+  width: 521px;
+  height: 272px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 276px;
+  border: 1px solid rgba(100, 41, 205, 1);
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.06);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.06);
+}
+
+.boton-invitar-jugadores {
+  transform: translate(-50%, -50%);
+  padding: 10px 24px;
+  border-radius: 50px;
+  border: none;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  background: rgba(100, 41, 205, 1);
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-admin {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 24px;
+  border-radius: 50px;
+  border: none;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  background: rgba(100, 41, 205, 1);
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.animacion-conteo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.anillo {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #8c52ff; /* morado claro */
+  border-radius: 50%;
+  margin: 0 5px;
+  animation: rebote 1s infinite ease-in-out;
+  display: inline-block;
+}
+
+.animacion-conteo .anillo:nth-child(n) {
+  animation-delay: 0s;
+}
+
+.animacion-conteo > .anillo + .anillo {
+  margin-left: 10px;
+}
+
+.texto-conteo {
+  margin-top: 10px;
+  color: #ccc;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.contenedor-resumen-abajo {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+@keyframes rebote {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}

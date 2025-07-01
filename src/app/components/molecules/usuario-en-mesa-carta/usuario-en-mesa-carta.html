@@ -1,0 +1,34 @@
+<div class="usuario-card" [ngClass]="modo">
+  <div class="contenido">
+    <!-- ✅ Siempre mostrar iniciales para el usuario actual -->
+    <div class="iniciales" *ngIf="esUsuarioActual">{{ iniciales }}</div>
+
+    <!-- ✅ Mostrar la carta solo si NO es el usuario actual -->
+    <div
+      class="carta"
+      *ngIf="!esUsuarioActual"
+      [ngClass]="{
+        'sin-carta': !carta,
+        'oculta': carta && !mostrarCartas,
+        'revelada': carta && mostrarCartas,
+        'espectador': modo === 'espectador',
+        'usuario-actual': esUsuarioActual
+      }"
+    >
+      <ng-container *ngIf="carta; else sinCarta">
+        <span *ngIf="mostrarCartas; else oculta"> {{ carta }} </span>
+      </ng-container>
+
+      <ng-template #oculta>
+        <span class="vacio"></span>
+      </ng-template>
+
+      <ng-template #sinCarta>
+        <span class="vacio"></span>
+      </ng-template>
+    </div>
+
+    <!-- ✅ El nombre se puede mantener para todos, si deseas ocultarlo para el usuario actual, cambia esto -->
+    <p class="nombre">{{ nombre }}</p>
+  </div>
+</div>

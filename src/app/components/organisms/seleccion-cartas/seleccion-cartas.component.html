@@ -1,0 +1,18 @@
+<h1 class="texto elige">Elige una carta 👇</h1>
+
+<div *ngIf="cartas.length > 0; else sinCartas" class="contenedor-cartas">
+  <div
+    *ngFor="let carta of cartas"
+    (click)="elegirCarta(carta)"
+    [class.jugador]="modoUsuario === 'jugador'"
+    [class.espectador]="modoUsuario === 'espectador'"
+    [class.elevada]="cartaSeleccionadaLocal === carta"
+    class="carta"
+  >
+    {{ carta }}
+  </div>
+</div>
+
+<ng-template #sinCartas>
+  <p class="mensaje-sin-cartas">No hay cartas registradas.</p>
+</ng-template>

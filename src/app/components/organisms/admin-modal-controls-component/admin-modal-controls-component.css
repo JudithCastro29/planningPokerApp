@@ -1,0 +1,94 @@
+* {
+  font-family: "Poppins", sans-serif;
+}
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(31, 13, 63, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(6px);
+}
+
+.modal-content {
+  background-color: #1f0d3f;
+  color: white;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(187, 101, 255, 1);
+  box-shadow: 0px 0px 15px 0px rgba(100, 41, 205, 1);
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  z-index: 1000;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* ... demás estilos */
+}
+
+.modal-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+  color: #bb65ff;
+}
+
+.modal-content label {
+  display: block;
+  margin: 1rem 0 0.4rem;
+  font-weight: 600;
+  text-align: left;
+  color: #ddddff;
+}
+
+.modal-content select {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: 1px solid rgba(187, 101, 255, 1);
+  background-color: #2d2d3f;
+  color: white;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-content button {
+  background-color: white;
+  color: #1f0d3f;
+  padding: 0.6rem 1.5rem;
+  border: none;
+  font-size: 16px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+  font-family: "Poppins", sans-serif;
+}
+
+.modal-content button:hover {
+  background-color: rgba(187, 101, 255, 1);
+  box-shadow: 0 0 30px white;
+}
+
+.mensaje-usuario {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+.mensaje-usuario strong {
+  color: rgba(187, 101, 255, 1);
+}
+
+.contenedor-button app-button-dark {
+  display: flex;
+  justify-content: center;
+}

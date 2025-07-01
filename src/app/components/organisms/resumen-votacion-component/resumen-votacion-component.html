@@ -1,0 +1,19 @@
+<div class="resumen-votacion">
+  <div class="cartas-votadas-con-promedio">
+    <div class="cartas-votadas">
+      <div *ngFor="let carta of cartasOrdenadas()" class="carta-resumen">
+        <div class="carta">{{ carta }}</div>
+        <div class="votos">
+          {{ votos[carta] }} {{ votos[carta] === 1 ? 'Voto' : 'Votos' }}
+        </div>
+      </div>
+    </div>
+
+    <div class="promedio">
+      Promedio:
+      <strong *ngIf="promedio !== null">
+        {{ promedio | number: '1.1-1' }}
+      </strong>
+    </div>
+  </div>
+</div>

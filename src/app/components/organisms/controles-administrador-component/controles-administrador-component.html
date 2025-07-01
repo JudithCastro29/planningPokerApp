@@ -1,0 +1,22 @@
+<div class="botones-admin">
+  <app-boton-admin-component
+    *ngIf="cartasReveladas && !animandoConteo"
+    (click)="emitirReiniciar()"
+  >
+    Reiniciar partida
+  </app-boton-admin-component>
+
+  <app-boton-admin-component
+    *ngIf="!cartasReveladas && todosHanVotado && !animandoConteo"
+    (click)="emitirRevelar()"
+  >
+    Revelar cartas
+  </app-boton-admin-component>
+
+  <app-boton-admin-component
+    *ngIf="esPropietario && cartasReveladas && !mostrarResumen && !animandoConteo"
+    (click)="emitirContarVotos()"
+  >
+    Contar votos
+  </app-boton-admin-component>
+</div>

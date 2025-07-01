@@ -1,0 +1,61 @@
+.contenedor-cartas {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 999;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 0.5rem;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+}
+
+.carta {
+  flex: 0 0 auto;
+  width: 10vw;
+  max-width: 56px;
+  min-width: 32px;
+  aspect-ratio: 3 / 5;
+  height: auto;
+  border-radius: 7px;
+  border: 1px solid rgba(187, 101, 255, 1);
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: white;
+  transition: transform 0.3s ease, background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* Carta seleccionada por el jugador actual */
+.carta.elevada {
+  transform: translateY(-8px);
+  background-color: rgba(187, 101, 255, 0.2);
+  border-color: white;
+}
+
+/* Modo jugador: puede seleccionar */
+.carta.jugador:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: translateY(-4px);
+}
+
+/* Modo espectador: sin interacción */
+.carta.espectador {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Texto superior */
+.texto.elige {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: white;
+}

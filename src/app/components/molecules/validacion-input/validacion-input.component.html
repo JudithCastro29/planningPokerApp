@@ -1,0 +1,21 @@
+<div *ngIf="mostrarError" class="mensaje-error">
+  <small *ngIf="control.errors?.['required']">Este campo es obligatorio</small>
+  <small *ngIf="control.errors?.['minlength']"
+    >Debe tener al menos
+    {{ control.errors?.['minlength']?.requiredLength }} caracteres</small
+  >
+  <small *ngIf="control.errors?.['maxlength']"
+    >No debe superar
+    {{ control.errors?.['maxlength']?.requiredLength }} caracteres</small
+  >
+  <small *ngIf="control.errors?.['pattern']">Formato no válido</small>
+  <small *ngIf="control.errors?.['caracteresInvalidos']">
+    No se permiten caracteres especiales (_,.*#/-)
+  </small>
+  <small *ngIf="control.errors?.['soloNumeros']">
+    No puede estar compuesto solo por números
+  </small>
+  <small *ngIf="control.errors?.['demasiadosNumeros']">
+    Máximo 3 números permitidos
+  </small>
+</div>
