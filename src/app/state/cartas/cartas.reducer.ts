@@ -16,7 +16,7 @@ function generarCartasAleatorias(modo: CartasState['modoCartas']): string[] {
   }
 }
 
-export const cartasReducer = createReducer(
+export const cartasReducer = createReducer<CartasState>(
   initialCartasState,
 
   on(CartasActions.establecerNombrePartidaCartas, (state, { nombre }) => {
@@ -91,6 +91,15 @@ export const cartasReducer = createReducer(
     return {
       ...state,
       cartasReveladas: false,
+      resumenVisible: false,
+    };
+  }),
+
+  // Este on debe ir también aquí, dentro de createReducer
+  on(CartasActions.ocultarResumen, (state) => {
+    localStorage.setItem(`resumen-visible-${state.nombrePartida}`, 'false');
+    return {
+      ...state,
       resumenVisible: false,
     };
   })

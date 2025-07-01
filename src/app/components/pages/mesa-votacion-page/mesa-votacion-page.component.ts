@@ -23,6 +23,7 @@ import {
   revelarCartas,
   reiniciarCartas,
   mostrarResumen,
+  ocultarResumen,
 } from '../../../state/cartas/cartas.actions';
 import {
   selectUsuariosEnPartidaPorNombre,
@@ -84,12 +85,12 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
   usuarios$ = signal<UsuarioEnMesa[]>([]);
   usuariosSnapshot: UsuarioEnMesa[] = [];
   usuarioActualSnapshot: UsuarioEnMesa | null = null;
+  mostrarResumen = signal(false);
+  animandoConteo = signal(false);
 
-  promedioVotacion = computed(() =>
-    calcularPromedioVotacion(this.usuariosSnapshot)
-  );
+  promedioVotacion = computed(() => calcularPromedioVotacion(this.usuarios$()));
 
-  votosPorCarta = computed(() => contarVotosPorCarta(this.usuariosSnapshot));
+  votosPorCarta = computed(() => contarVotosPorCarta(this.usuarios$()));
 
   private subscriptions = new Subscription();
 
@@ -178,7 +179,10 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
         JSON.stringify(reveladas)
       );
     });
-    this.subscriptions.add(cartasReveladasSub);
+    const mostrarResumenSub = this.mostrarResumen$.subscribe((valor) => {
+      this.mostrarResumen.set(valor);
+    });
+    this.subscriptions.add(mostrarResumenSub);
 
     // Escuchar eventos storage para sincronización entre pestañas
     window.addEventListener('storage', this.onStorageEvent.bind(this));
@@ -188,6 +192,8 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
     window.removeEventListener('storage', this.onStorageEvent.bind(this));
   }
+
+  private ultimoConteo = 0;
 
   private onStorageEvent(event: StorageEvent) {
     if (!event.key) return;
@@ -209,9 +215,13 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
       } catch (e) {
         console.error('Error parseando cartasReveladas en storage event', e);
       }
+    } else if (event.key === `contar-votos:${this.nombrePartida}`) {
+      const timestamp = Number(event.newValue);
+      if (!timestamp || timestamp === this.ultimoConteo) return;
+      this.ultimoConteo = timestamp;
+      this.activarAnimacionYResumen(timestamp);
     }
   }
-
   guardarUsuario({ nombre, modo }: { nombre: string; modo: string }) {
     console.log('[guardarUsuario] llamado con', nombre, modo);
 
@@ -265,7 +275,24 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
   }
 
   contarVotos() {
-    this.store.dispatch(mostrarResumen());
+    // Guardar timestamp para sincronizar
+    const timestamp = Date.now();
+    localStorage.setItem(
+      `contar-votos:${this.nombrePartida}`,
+      timestamp.toString()
+    );
+
+    // Ejecutar localmente para el usuario actual también
+    this.activarAnimacionYResumen(timestamp);
+  }
+
+  private activarAnimacionYResumen(timestamp: number) {
+    this.animandoConteo.set(true);
+
+    setTimeout(() => {
+      this.store.dispatch(mostrarResumen());
+      this.animandoConteo.set(false);
+    }, 3000);
   }
 
   onCambiarModo() {
@@ -320,13 +347,5 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
     return reveladas;
   }
 
-  get mostrarResumen(): boolean {
-    let mostrar = false;
-    this.mostrarResumen$.subscribe((m) => (mostrar = m)).unsubscribe();
-    return mostrar;
-  }
-
-  get animandoConteo(): boolean {
-    return this.mostrarResumen;
-  }
+  animandoConteo$ = this.mostrarResumen$;
 }

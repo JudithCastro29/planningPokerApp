@@ -42,3 +42,6 @@ export const reiniciarCartas = createAction('[Cartas] Reiniciar Cartas');
 
 // 🔁 Reiniciar todo el estado de cartas
 export const reiniciarEstado = createAction('[Cartas] Reiniciar Estado');
+
+//oculktar resumen
+export const ocultarResumen = createAction('[Cartas] Ocultar Resumen');
