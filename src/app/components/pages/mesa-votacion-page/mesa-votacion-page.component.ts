@@ -17,6 +17,7 @@ import {
   selectCartas,
   selectCartasReveladas,
   selectResumenVisible,
+  selectModoCartas,
 } from '../../../state/cartas/cartas.selectors';
 import {
   establecerCartas,
@@ -87,6 +88,10 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
   usuarioActualSnapshot: UsuarioEnMesa | null = null;
   mostrarResumen = signal(false);
   animandoConteo = signal(false);
+  modoCartas: 'numeros' | 'letras' = 'numeros';
+
+  //para q se muestren las cartas
+  cartasListas = signal(false);
 
   promedioVotacion = computed(() => calcularPromedioVotacion(this.usuarios$()));
 
@@ -102,6 +107,20 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
       this.store.dispatch(
         generarCartasSiNoExisten({ nombrePartida: this.nombrePartida })
       );
+      this.cartas$.subscribe((cartas) => {
+        if (cartas.length > 0) {
+          this.cartasListas.set(true);
+        }
+      });
+
+      const modoGuardado = localStorage.getItem(
+        `modo-cartas-${this.nombrePartida}`
+      ) as 'numeros' | 'letras' | null;
+      if (modoGuardado) {
+        this.modoCartas = modoGuardado;
+      } else {
+        this.modoCartas = 'numeros'; // por defecto
+      }
 
       // Cargar cartas desde localStorage si existen
       const cartasGuardadas = localStorage.getItem(
@@ -261,7 +280,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
   }
 
   reiniciarPartida() {
-    this.store.dispatch(reiniciarCartas());
+    this.store.dispatch(reiniciarCartas({ nombrePartida: this.nombrePartida }));
     this.reiniciarSeleccion = Date.now();
     localStorage.setItem(
       'reiniciar-seleccion:' + this.nombrePartida,

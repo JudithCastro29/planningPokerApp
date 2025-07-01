@@ -27,18 +27,19 @@ export const cartasReducer = createReducer<CartasState>(
     };
   }),
 
-  on(CartasActions.establecerModoCartas, (state, { modo }) => {
-    localStorage.setItem('modo-cartas', modo);
-    // Al cambiar modo, generamos nuevas cartas
+  on(CartasActions.establecerModoCartas, (state, { modo, nombrePartida }) => {
     const nuevasCartas = generarCartasAleatorias(modo);
+    localStorage.setItem(`modo-cartas-${nombrePartida}`, modo);
     localStorage.setItem(
-      `cartas-${state.nombrePartida}`,
+      `cartas-${nombrePartida}`,
       JSON.stringify(nuevasCartas)
     );
+
     return {
       ...state,
       modoCartas: modo,
       cartas: nuevasCartas,
+      nombrePartida,
     };
   }),
 
@@ -69,19 +70,26 @@ export const cartasReducer = createReducer<CartasState>(
     };
   }),
 
-  on(CartasActions.reiniciarCartas, (state) => {
-    const nuevasCartas = generarCartasAleatorias(state.modoCartas);
+  on(CartasActions.reiniciarCartas, (state, { nombrePartida }) => {
+    const modoActual =
+      (localStorage.getItem('modo-cartas') as 'numeros' | 'letras') ||
+      'numeros';
+    const nuevasCartas = generarCartasAleatorias(modoActual);
+
     localStorage.setItem(
-      `cartas-${state.nombrePartida}`,
+      `cartas-${nombrePartida}`,
       JSON.stringify(nuevasCartas)
     );
-    localStorage.removeItem(`cartas-reveladas-${state.nombrePartida}`);
-    localStorage.removeItem(`resumen-visible-${state.nombrePartida}`);
+    localStorage.removeItem(`cartas-reveladas-${nombrePartida}`);
+    localStorage.removeItem(`resumen-visible-${nombrePartida}`);
+
     return {
       ...state,
       cartas: nuevasCartas,
       cartasReveladas: false,
       resumenVisible: false,
+      modoCartas: modoActual,
+      nombrePartida,
     };
   }),
 
@@ -95,7 +103,6 @@ export const cartasReducer = createReducer<CartasState>(
     };
   }),
 
-  // Este on debe ir también aquí, dentro de createReducer
   on(CartasActions.ocultarResumen, (state) => {
     localStorage.setItem(`resumen-visible-${state.nombrePartida}`, 'false');
     return {

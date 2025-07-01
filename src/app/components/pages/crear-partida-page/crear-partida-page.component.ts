@@ -23,7 +23,7 @@ export class CrearPartidaPageComponent implements OnInit {
   ngOnInit(): void {
     // Limpiar estado de usuarios y cartas
     this.store.dispatch(reiniciarUsuarios());
-    this.store.dispatch(reiniciarCartas());
+
     this.store.dispatch(reiniciarCartasEstado());
   }
 

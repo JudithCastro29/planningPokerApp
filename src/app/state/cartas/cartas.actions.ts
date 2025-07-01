@@ -10,7 +10,7 @@ export const establecerNombrePartidaCartas = createAction(
 // 🎴 Establecer modo de las cartas (fibonacci, etc.)
 export const establecerModoCartas = createAction(
   '[Cartas] Establecer Modo Cartas',
-  props<{ modo: ModoCartas }>()
+  props<{ modo: ModoCartas; nombrePartida: string }>()
 );
 
 // 🃏 Establecer la lista completa de cartas
@@ -38,7 +38,10 @@ export const revelarCartas = createAction('[Cartas] Revelar Cartas');
 export const mostrarResumen = createAction('[Cartas] Mostrar Resumen');
 
 // 🧹 Reiniciar todas las cartas (quitar selección)
-export const reiniciarCartas = createAction('[Cartas] Reiniciar Cartas');
+export const reiniciarCartas = createAction(
+  '[Cartas] Reiniciar Cartas',
+  props<{ nombrePartida: string }>()
+);
 
 // 🔁 Reiniciar todo el estado de cartas
 export const reiniciarEstado = createAction('[Cartas] Reiniciar Estado');

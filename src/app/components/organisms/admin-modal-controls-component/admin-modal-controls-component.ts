@@ -1,4 +1,12 @@
-import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  inject,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -6,12 +14,13 @@ import { Store } from '@ngrx/store';
 import { UsuarioEnMesa } from '../../../models/usuario.model';
 import { AppState } from '../../../state/app.reducers';
 import { delegarPropietario } from '../../../state/usuarios/usuario.actions';
-import {
-  reiniciarCartas,
-  setModoCartas,
-} from '../../../state/usuarios/usuario.actions';
 
 import { ButtonDarkComponent } from '../../atoms/button-dark/button-dark.component';
+
+import {
+  establecerModoCartas,
+  reiniciarCartas,
+} from '../../../state/cartas/cartas.actions';
 
 @Component({
   selector: 'app-admin-modal-controls-component',
@@ -20,16 +29,17 @@ import { ButtonDarkComponent } from '../../atoms/button-dark/button-dark.compone
   templateUrl: './admin-modal-controls-component.html',
   styleUrl: './admin-modal-controls-component.css',
 })
-export class AdminModalControlsComponent {
+export class AdminModalControlsComponent implements OnChanges {
   @Input() usuarioActual!: UsuarioEnMesa;
   @Input() jugadores: UsuarioEnMesa[] = [];
   @Input() nombrePartida: string = '';
   @Input() cartasReveladas: boolean = false;
   @Output() cerrar = new EventEmitter<void>();
   @Output() cambiarModoUsuario = new EventEmitter<void>();
+  @Input() modoActualCartas: 'numeros' | 'letras' = 'numeros';
 
   jugadorSeleccionado: string = '';
-  modoCartas: 'numeros' | 'letras' = 'numeros';
+  modoCartas: 'numeros' | 'letras' = 'numeros'; // valor inicial por defecto
 
   private store = inject(Store<AppState>);
 
@@ -47,13 +57,19 @@ export class AdminModalControlsComponent {
   }
 
   cambiarModoCartas() {
+    console.log('[Modo seleccionado]', this.modoCartas); // ← debería imprimir 'letras' o 'numeros'
+
     if (this.cartasReveladas) {
       alert('Debes reiniciar la partida para cambiar el modo de puntaje');
       return;
     }
 
-    this.store.dispatch(setModoCartas({ modo: this.modoCartas }));
-    this.store.dispatch(reiniciarCartas());
+    this.store.dispatch(
+      establecerModoCartas({
+        modo: this.modoCartas,
+        nombrePartida: this.nombrePartida,
+      })
+    );
   }
 
   emitirCambioModo() {
@@ -62,5 +78,11 @@ export class AdminModalControlsComponent {
 
   cerrarModal() {
     this.cerrar.emit();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['modoActualCartas']) {
+      this.modoCartas = this.modoActualCartas;
+    }
   }
 }
