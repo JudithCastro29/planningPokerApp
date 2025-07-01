@@ -1,8 +1,16 @@
-import { Component, OnInit, signal, computed, inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  signal,
+  computed,
+  inject,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 import { AppState } from '../../../state/app.reducers';
 import {
@@ -40,6 +48,7 @@ import {
 } from '../../../utils/calculos-votacion';
 import { MensajeEmergenteService } from '../../../services/mensaje-emergente-service/mensaje-emergente-service';
 import { generarCartasSiNoExisten } from '../../../state/cartas/cartas.actions';
+
 @Component({
   selector: 'app-mesa-votacion-page',
   standalone: true,
@@ -55,7 +64,7 @@ import { generarCartasSiNoExisten } from '../../../state/cartas/cartas.actions';
   templateUrl: './mesa-votacion-page.component.html',
   styleUrls: ['./mesa-votacion-page.component.css'],
 })
-export class MesaVotacionPage implements OnInit {
+export class MesaVotacionPage implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private store = inject(Store<AppState>);
   private mensajeEmergenteService = inject(MensajeEmergenteService);
@@ -82,6 +91,8 @@ export class MesaVotacionPage implements OnInit {
 
   votosPorCarta = computed(() => contarVotosPorCarta(this.usuariosSnapshot));
 
+  private subscriptions = new Subscription();
+
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.nombrePartida = params['nombrePartida'] || '';
@@ -90,7 +101,8 @@ export class MesaVotacionPage implements OnInit {
       this.store.dispatch(
         generarCartasSiNoExisten({ nombrePartida: this.nombrePartida })
       );
-      // ✅ Cargar cartas desde localStorage si existen
+
+      // Cargar cartas desde localStorage si existen
       const cartasGuardadas = localStorage.getItem(
         `cartas-${this.nombrePartida}`
       );
@@ -103,8 +115,26 @@ export class MesaVotacionPage implements OnInit {
         }
       }
 
-      // 🔁 Escuchar usuarios de la partida
-      this.store
+      // Cargar estado de cartasReveladas desde localStorage
+      const reveladasGuardadas = localStorage.getItem(
+        `cartas-reveladas:${this.nombrePartida}`
+      );
+      if (reveladasGuardadas) {
+        try {
+          const reveladas = JSON.parse(reveladasGuardadas);
+          if (reveladas) {
+            this.store.dispatch(revelarCartas());
+          }
+        } catch (e) {
+          console.error(
+            'Error al cargar cartasReveladas desde localStorage:',
+            e
+          );
+        }
+      }
+
+      // Suscribirse a usuarios de la partida
+      const usuariosSub = this.store
         .select(selectUsuariosEnPartidaPorNombre(this.nombrePartida))
         .subscribe((usuarios) => {
           this.usuariosSnapshot = usuarios;
@@ -132,21 +162,56 @@ export class MesaVotacionPage implements OnInit {
             );
           }
         });
+      this.subscriptions.add(usuariosSub);
     });
 
-    this.usuarioActual$.subscribe((usuario) => {
+    // Suscribirse a usuarioActual
+    const usuarioActualSub = this.usuarioActual$.subscribe((usuario) => {
       this.usuarioActualSnapshot = usuario;
     });
+    this.subscriptions.add(usuarioActualSub);
 
-    window.addEventListener('storage', (event) => {
-      if (
-        event.key === 'reiniciar-seleccion:' + this.nombrePartida &&
-        Number(event.newValue) !== this.reiniciarSeleccion
-      ) {
-        this.reiniciarSeleccion = Number(event.newValue) || Date.now();
-      }
+    // Sincronizar cartasReveladas con localStorage
+    const cartasReveladasSub = this.cartasReveladas$.subscribe((reveladas) => {
+      localStorage.setItem(
+        `cartas-reveladas:${this.nombrePartida}`,
+        JSON.stringify(reveladas)
+      );
     });
+    this.subscriptions.add(cartasReveladasSub);
+
+    // Escuchar eventos storage para sincronización entre pestañas
+    window.addEventListener('storage', this.onStorageEvent.bind(this));
   }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+    window.removeEventListener('storage', this.onStorageEvent.bind(this));
+  }
+
+  private onStorageEvent(event: StorageEvent) {
+    if (!event.key) return;
+
+    if (event.key === 'reiniciar-seleccion:' + this.nombrePartida) {
+      const nuevoValor = Number(event.newValue) || Date.now();
+      if (nuevoValor !== this.reiniciarSeleccion) {
+        this.reiniciarSeleccion = nuevoValor;
+      }
+    } else if (event.key === `cartas-reveladas:${this.nombrePartida}`) {
+      try {
+        const reveladas = JSON.parse(event.newValue ?? 'false');
+        if (reveladas) {
+          this.store.dispatch(revelarCartas());
+        } else {
+          // Si quieres ocultar cartas, despacha una acción aquí, si existe
+          // Ejemplo: this.store.dispatch(ocultarCartas());
+        }
+      } catch (e) {
+        console.error('Error parseando cartasReveladas en storage event', e);
+      }
+    }
+  }
+
   guardarUsuario({ nombre, modo }: { nombre: string; modo: string }) {
     console.log('[guardarUsuario] llamado con', nombre, modo);
 
@@ -194,6 +259,9 @@ export class MesaVotacionPage implements OnInit {
     );
     this.mensajeTodosHanVotado = false;
     localStorage.removeItem('todos-han-votado:' + this.nombrePartida);
+
+    // Al reiniciar, también ocultar las cartas reveladas y sincronizar
+    localStorage.setItem(`cartas-reveladas:${this.nombrePartida}`, 'false');
   }
 
   contarVotos() {
