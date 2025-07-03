@@ -70,3 +70,61 @@
   color: white;
   text-align: left;
 }
+
+@media (max-width: 375px) {
+  .modal-content {
+    width: 90%;
+    max-width: 23.4rem;
+  }
+
+  .encabezado-modal {
+    font-size: 0.9rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .encabezado-modal .titulo {
+    font-size: 1rem;
+  }
+
+  .boton-cerrar {
+    font-size: 1.2rem;
+  }
+
+  .contenedor-link {
+    padding: 1.5rem;
+  }
+
+  .link {
+    font-size: 0.8rem;
+    max-width: 23.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%;
+    max-width: 28.1rem;
+  }
+
+  .encabezado-modal {
+    font-size: 1rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .encabezado-modal .titulo {
+    font-size: 1.125rem;
+  }
+
+  .boton-cerrar {
+    font-size: 1.3rem;
+  }
+
+  .contenedor-link {
+    padding: 1.8rem;
+  }
+
+  .link {
+    font-size: 0.85rem;
+    max-width: 28.1rem;
+  }
+}

@@ -1,20 +1,15 @@
-<div class="barra-cartas-promedio">
-  <!-- Cartas a la izquierda -->
-  <div class="bloque-cartas">
-    <div *ngFor="let carta of cartasOrdenadas()" class="carta-resumen">
-      <div class="carta">{{ carta }}</div>
-      <div class="votos">
-        {{ votos[carta] }} {{ votos[carta] === 1 ? 'Voto' : 'Votos' }}
-      </div>
+<div class="bloque-cartas">
+  <div *ngFor="let carta of cartasOrdenadas()" class="carta-resumen">
+    <div class="carta">{{ carta }}</div>
+    <div class="votos">
+      {{ votos[carta] }} {{ votos[carta] === 1 ? 'Voto' : 'Votos' }}
     </div>
   </div>
+</div>
 
-  <!-- Promedio a la derecha -->
-  <div class="bloque-promedio" *ngIf="promedio !== null">
-    <div class="subtitulo">Promedio:</div>
-    <strong *ngIf="typeof promedio === 'number'">
-      {{ promedio | number: '1.0-1' }}
-    </strong>
-    <strong *ngIf="typeof promedio === 'string'"> {{ promedio }} </strong>
-  </div>
+<!-- Promedio -->
+<div class="bloque-promedio" *ngIf="promedio !== null">
+  <div class="subtitulo">Promedio:</div>
+  <strong *ngIf="typeof promedio === 'number'"> {{ promedio}} </strong>
+  <strong *ngIf="typeof promedio === 'string'"> {{ promedio }} </strong>
 </div>

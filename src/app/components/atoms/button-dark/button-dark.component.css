@@ -26,7 +26,16 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
 :host {
   display: flex;
   justify-content: center;
+}
+
+@media (max-width: 375px) {
+  .button-dark {
+    max-width: 7.5rem;
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+  }
 }

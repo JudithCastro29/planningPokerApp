@@ -151,3 +151,43 @@
 .animacion-conteo .anillo:nth-child(4) {
   animation-delay: 3.2s;
 }
+@media (max-width: 375px) {
+  .table {
+    width: 22.5rem;
+    height: 12.5rem;
+    font-size: 10px;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .border1 {
+    width: 20.75rem; /* 332px */
+    height: 11.5rem; /* 184px */
+  }
+
+  .border2 {
+    width: 19.75rem; /* 316px */
+    height: 10.5rem; /* 168px */
+  }
+
+  .boton-invitar-jugadores {
+    font-size: 0.8rem;
+  }
+
+  .btn-admin {
+    font-size: 0.8rem;
+  }
+
+  .animacion-conteo {
+    padding: 0.75rem 0;
+  }
+
+  .anillo {
+    width: 0.875rem; /* 14px */
+    height: 0.875rem; /* 14px */
+    border: 0.125rem solid #8c52ff; /* 2px */
+  }
+
+  .texto-conteo {
+    font-size: 0.625rem; /* 10px */
+  }
+}

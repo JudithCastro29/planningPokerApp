@@ -45,6 +45,6 @@ export function calcularResumenVotacion(
       .filter((n) => !isNaN(n));
     if (valores.length === 0) return '-';
     const promedio = valores.reduce((a, b) => a + b, 0) / valores.length;
-    return promedio.toFixed(2);
+    return promedio.toFixed(1);
   }
 }

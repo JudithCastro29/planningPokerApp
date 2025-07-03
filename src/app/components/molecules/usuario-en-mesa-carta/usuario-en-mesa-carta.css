@@ -75,3 +75,26 @@
   color: #6b7280;
   border: 1px solid rgba(187, 101, 255, 1);
 }
+
+@media (max-width: 375px) {
+  .usuario-card {
+    width: 30px;
+    transform: rotate(-90deg);
+  }
+
+  .usuario-card .iniciales {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 0.7rem;
+  }
+
+  .usuario-card .nombre {
+    font-size: 10px;
+  }
+
+  .usuario-card .carta {
+    width: 1.5rem;
+    height: 2.5rem;
+    font-size: 0.875rem;
+  }
+}

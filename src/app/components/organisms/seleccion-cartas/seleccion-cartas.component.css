@@ -53,3 +53,19 @@
   display: flex;
   font-size: 1.3rem;
 }
+@media (max-width: 375px) {
+  .contenedor-cartas {
+    bottom: 1rem;
+  }
+
+  .carta {
+    width: 2.8rem;
+    height: 4.8rem;
+    font-size: 13px;
+  }
+
+  .texto.elige {
+    bottom: 8rem;
+    font-size: 15px;
+  }
+}

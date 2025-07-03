@@ -16,3 +16,39 @@
   font-weight: bold;
   font-size: 18px;
 }
+
+@media (max-width: 375px) {
+  .mensaje-error {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+
+  .mensaje-error small::before {
+    font-size: 1rem;
+    margin-right: 0.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mensaje-error {
+    font-size: 0.95rem;
+    margin-top: 0.3rem;
+  }
+
+  .mensaje-error small::before {
+    font-size: 1.1rem;
+    margin-right: 0.3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mensaje-error {
+    font-size: 1rem;
+    margin-top: 0.3125rem;
+  }
+
+  .mensaje-error small::before {
+    font-size: 1.125rem;
+    margin-right: 0.25rem;
+  }
+}

@@ -13,7 +13,7 @@
 
 .nombre-partida {
   font-weight: 700;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   text-align: center;
 }
 
@@ -55,4 +55,30 @@
 
 .btn-invitar:hover {
   box-shadow: 0 0 20px white;
+}
+
+@media (max-width: 375px) {
+  .barra-superior {
+    padding: 0.8rem 1.5rem;
+  }
+
+  .nombre-partida {
+    font-size: 10px;
+  }
+
+  .iniciales-boton {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+
+  .btn-invitar {
+    width: 120px;
+    height: 28px;
+    font-size: 10px;
+  }
+  .icono-izquierda img {
+    height: 30px;
+    width: 30px;
+  }
 }

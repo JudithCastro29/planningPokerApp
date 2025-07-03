@@ -27,3 +27,11 @@ app-button-dark:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+@media (max-width: 375px) {
+  .form-crear-usuario {
+    width: 90%;
+    height: auto;
+    max-width: 23.4rem;
+    padding: 1rem;
+  }
+}

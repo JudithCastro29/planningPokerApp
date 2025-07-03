@@ -11,18 +11,18 @@
 <div class="table">
   <div class="border1"></div>
 
-  <div class="border2">
-    <ng-container *ngFor="let usuario of usuariosEnMesa; index as i">
-      <app-usuario-en-mesa-carta
-        [nombre]="usuario.nombre"
-        [modo]="usuario.modo"
-        [carta]="usuario.carta"
-        [mostrarCartas]="cartasReveladas"
-        [esUsuarioActual]="usuario.nombre === usuarioActual.nombre"
-        [ngStyle]="getPlayerStyle(i)"
-      ></app-usuario-en-mesa-carta>
-    </ng-container>
-  </div>
+  <div class="border2"></div>
+
+  <ng-container *ngFor="let usuario of usuariosEnMesa; index as i">
+    <app-usuario-en-mesa-carta
+      [nombre]="usuario.nombre"
+      [modo]="usuario.modo"
+      [carta]="usuario.carta"
+      [mostrarCartas]="cartasReveladas"
+      [esUsuarioActual]="usuario.nombre === usuarioActual.nombre"
+      [ngStyle]="getPlayerStyle(i)"
+    ></app-usuario-en-mesa-carta>
+  </ng-container>
 
   <!-- Controles de administrador -->
   <div class="usuarios-mesa">

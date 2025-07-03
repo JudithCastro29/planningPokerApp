@@ -23,3 +23,11 @@
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
   border-radius: 50px;
 }
+
+@media (max-width: 375px) {
+  .btn-admin {
+    width: 10rem;
+    height: 2rem;
+    font-size: 14px;
+  }
+}
