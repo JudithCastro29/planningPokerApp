@@ -5,7 +5,7 @@ import { validarNombre } from '../../../utils/validador-nombre';
 import { SelectorModoVisualizacionComponent } from '../../molecules/selector-modo-visualizacion/selector-modo-visualizacion.component';
 import { ButtonDarkComponent } from '../../atoms/button-dark/button-dark.component';
 import { InputDarkComponent } from '../../atoms/input-dark/input-dark.component';
-
+import { selectUsuariosEnPartidaPorNombre } from '../../../state/usuarios/usuario.selectors';
 import {
   FormGroup,
   FormControl,

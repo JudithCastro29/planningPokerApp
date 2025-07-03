@@ -57,7 +57,7 @@
   border-radius: 50px;
   border: none;
   color: white;
-
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
@@ -75,7 +75,7 @@
   border-radius: 50px;
   border: none;
   color: white;
-
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
@@ -89,10 +89,17 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px 0;
+}
+.anillos-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .anillo {
@@ -100,16 +107,8 @@
   height: 20px;
   border: 3px solid #8c52ff;
   border-radius: 50%;
-  display: inline-block;
-  animation: cruzar-horizontal 1s ease-in-out 2;
-}
-
-.animacion-conteo .anillo:nth-child(n) {
-  animation-delay: 0s;
-}
-
-.animacion-conteo > .anillo + .anillo {
-  margin-left: 10px;
+  animation: cruzar-horizontal 0.5s ease-in-out 2;
+  animation-fill-mode: both;
 }
 
 .texto-conteo {
@@ -117,14 +116,6 @@
   color: #ccc;
   font-size: 14px;
   font-weight: 500;
-}
-
-.contenedor-resumen-abajo {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
 }
 
 @keyframes cruzar-horizontal {
@@ -139,18 +130,14 @@
   }
 }
 
-.animacion-conteo .anillo:nth-child(1) {
-  animation-delay: 2s;
+.contenedor-resumen-abajo {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
 }
-.animacion-conteo .anillo:nth-child(2) {
-  animation-delay: 2.5s;
-}
-.animacion-conteo .anillo:nth-child(3) {
-  animation-delay: 3s;
-}
-.animacion-conteo .anillo:nth-child(4) {
-  animation-delay: 3.2s;
-}
+
 @media (max-width: 375px) {
   .table {
     width: 22.5rem;

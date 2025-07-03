@@ -58,4 +58,19 @@ export class MesaVotacionTemplateComponent {
       ) && !this.cartasReveladas
     );
   }
+
+  getEstiloAnillo(index: number): { [key: string]: string } {
+    switch (index) {
+      case 0:
+        return { 'margin-right': '40px' };
+      case 1:
+        return { 'margin-right': '0px' };
+      case 2:
+        return { 'margin-right': '40px' };
+      case 3:
+        return { 'margin-right': '0px' };
+      default:
+        return {};
+    }
+  }
 }

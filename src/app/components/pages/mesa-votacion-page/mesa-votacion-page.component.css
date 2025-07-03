@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
 .barra-superior {
   display: flex;
   align-items: center;
@@ -15,6 +17,7 @@
   font-weight: 700;
   font-size: 1.2rem;
   text-align: center;
+  font-family: "Poppins";
 }
 
 .acciones-derecha {

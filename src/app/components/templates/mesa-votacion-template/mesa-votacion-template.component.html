@@ -41,11 +41,14 @@
 
   <!-- Animación conteo -->
   <div *ngIf="animandoConteo" class="animacion-conteo">
-    <div
-      class="anillo"
-      *ngFor="let i of [1, 2, 3, 4]; let j = index"
-      [style.animationDelay]="j * 0.15 + 's'"
-    ></div>
+    <div class="anillos-container">
+      <div
+        class="anillo"
+        *ngFor="let i of [1, 2, 3, 4]; let j = index"
+        [style.animationDelay]="j * 0.15 + 's'"
+        [ngStyle]="getEstiloAnillo(j)"
+      ></div>
+    </div>
     <div class="texto-conteo">Contando votos</div>
   </div>
 </div>
