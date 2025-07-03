@@ -1,4 +1,3 @@
-<!-- Componente de selección de cartas -->
 <app-seleccion-cartas-component
   *ngIf="!mostrarResumen && usuarioActual"
   [cartas]="cartas"
@@ -51,7 +50,7 @@
   </div>
 </div>
 
-<!-- Resumen de votación -->
+<!-- Resumen de votación (fuera de la mesa)-->
 <div class="contenedor-resumen-abajo" *ngIf="mostrarResumen">
   <app-resumen-votacion-component
     [votos]="votos"

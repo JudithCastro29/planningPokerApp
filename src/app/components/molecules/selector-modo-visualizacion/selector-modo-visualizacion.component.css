@@ -7,6 +7,7 @@
   margin-right: 1rem;
   font-size: 1rem;
   color: white;
+  flex-direction: row-reverse;
 }
 .selector-circulo input[type="radio"] {
   position: absolute;

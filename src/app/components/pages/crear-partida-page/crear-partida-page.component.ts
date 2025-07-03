@@ -6,7 +6,7 @@ import { FormularioCrearPartidaComponent } from '../../organisms/formulario-crea
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../state/app.reducers';
 import { reiniciarUsuarios } from '../../../state/usuarios/usuario.actions';
-import { reiniciarCartas } from '../../../state/cartas/cartas.actions';
+
 import { reiniciarEstado as reiniciarCartasEstado } from '../../../state/cartas/cartas.actions';
 import { establecerNombrePartida } from '../../../state/partida/partida.actions';
 

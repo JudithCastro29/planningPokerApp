@@ -1,4 +1,6 @@
 .btn-admin {
+  width: 12rem;
+  height: 2.5rem;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -12,7 +14,7 @@
   font-size: 16px;
   cursor: pointer;
   background: rgba(100, 41, 205, 1);
-
+  align-content: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 

@@ -1,5 +1,6 @@
 <div class="selector-circulo">
   <label *ngFor="let modo of modos" [class.seleccionado]="value === modo">
+    {{ modo | titlecase }}
     <input
       type="radio"
       [value]="modo"
@@ -7,6 +8,5 @@
       (change)="seleccionar(modo)"
       name="modoVisualizacion"
     />
-    {{ modo }}
   </label>
 </div>

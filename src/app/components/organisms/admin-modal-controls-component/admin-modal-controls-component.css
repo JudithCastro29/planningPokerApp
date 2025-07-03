@@ -16,7 +16,7 @@
 }
 
 .modal-content {
-  background-color: #1f0d3f;
+  background: rgba(31, 13, 63);
   color: white;
   padding: 2rem;
   border-radius: 16px;
@@ -30,7 +30,6 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* ... demás estilos */
 }
 
 .modal-content h2 {
@@ -69,7 +68,6 @@
   cursor: pointer;
   margin-top: 1rem;
   transition: all 0.3s ease;
-  font-family: "Poppins", sans-serif;
 }
 
 .modal-content button:hover {

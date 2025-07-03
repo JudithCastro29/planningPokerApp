@@ -7,13 +7,13 @@
 }
 
 .icono-izquierda img {
-  height: 60px;
-  width: 60px;
+  height: 3.8rem;
+  width: 3.8rem;
 }
 
 .nombre-partida {
   font-weight: 700;
-  font-size: 26px;
+  font-size: 1.6rem;
   text-align: center;
 }
 
@@ -24,12 +24,8 @@
 }
 
 .iniciales-boton {
-  width: 4.5vw;
-  height: 4.5vw;
-  max-width: 56px;
-  max-height: 56px;
-  min-width: 36px;
-  min-height: 36px;
+  width: 2.3rem;
+  height: 2.3rem;
   background: rgba(189, 189, 255, 1);
   border-radius: 50%;
   display: flex;

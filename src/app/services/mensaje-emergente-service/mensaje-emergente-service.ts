@@ -7,7 +7,6 @@ export class MensajeEmergenteService {
   private mensaje = signal('');
   private visible = signal(false);
 
-  // Exponer señales como solo lectura
   mensajeActual = computed(() => this.mensaje());
   estaVisible = computed(() => this.visible());
 

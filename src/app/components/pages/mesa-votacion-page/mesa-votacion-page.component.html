@@ -6,7 +6,6 @@
   <div class="nombre-partida">{{ nombrePartida }}</div>
 
   <div class="acciones-derecha">
-    <!-- ✅ CORREGIDO: usamos `.set(true)` en lugar de asignación directa -->
     <button class="iniciales-boton" (click)="mostrarAdminModal.set(true)">
       {{ inicialesPropietario }}
     </button>
@@ -16,7 +15,6 @@
   </div>
 </div>
 
-<!-- ✅ CORREGIDO: usamos .() para evaluar signal -->
 <app-admin-modal-controls-component
   *ngIf="mostrarAdminModal() && usuarioActual"
   [usuarioActual]="usuarioActual"
@@ -28,14 +26,12 @@
   [nombrePartida]="nombrePartida"
 ></app-admin-modal-controls-component>
 
-<!-- ✅ CORREGIDO: usamos .() para mostrar modal -->
 <app-invitar-jugadores-modal-component
   *ngIf="mostrarInvitarModal()"
   [partida]="nombrePartida"
   (cerrar)="mostrarInvitarModal.set(false)"
 ></app-invitar-jugadores-modal-component>
 
-<!-- ✅ Mesa de votación -->
 <div *ngIf="cartasListas()">
   <app-mesa-votacion-template-component
     [usuarioActual]="usuarioActual!"
@@ -56,7 +52,7 @@
     [esPropietario]="usuarioActual?.rol === 'propietario'"
   ></app-mesa-votacion-template-component>
 </div>
-<!-- ✅ Modal para crear usuario -->
+
 <app-crear-usuario-modal-component
   *ngIf="mostrarModal() && cartasListas()"
   [nombrePartida]="nombrePartida"

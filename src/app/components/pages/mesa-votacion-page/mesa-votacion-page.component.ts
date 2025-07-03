@@ -91,8 +91,6 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
   mostrarResumen = signal(false);
   animandoConteo = signal(false);
   modoCartas: 'numeros' | 'letras' = 'numeros';
-
-  //para q se muestren las cartas
   cartasListas = signal(false);
 
   promedioVotacion = computed(() =>
@@ -122,7 +120,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
       if (modoGuardado) {
         this.modoCartas = modoGuardado;
       } else {
-        this.modoCartas = 'numeros'; // por defecto
+        this.modoCartas = 'numeros';
       }
 
       // Cargar cartas desde localStorage si existen
@@ -174,7 +172,11 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
             .filter((u) => u.modo === 'jugador' || u.rol === 'propietario')
             .every((u) => u.carta && u.carta !== '');
 
-          if (todosHanVotado && !this.mensajeTodosHanVotado) {
+          if (
+            usuarios.length > 0 &&
+            todosHanVotado &&
+            !this.mensajeTodosHanVotado
+          ) {
             this.mensajeTodosHanVotado = true;
             localStorage.setItem(
               'todos-han-votado:' + this.nombrePartida,
@@ -224,7 +226,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
       if (nuevoValor !== this.reiniciarSeleccion) {
         this.reiniciarSeleccion = nuevoValor;
 
-        // 🔁 Ejecuta el reinicio también en esta pestaña
+        //jecuta el reinicio también en esta pestaña
         this.store.dispatch(
           reiniciarCartas({ nombrePartida: this.nombrePartida })
         );
@@ -239,8 +241,6 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
         if (reveladas) {
           this.store.dispatch(revelarCartas());
         } else {
-          // Si quieres ocultar cartas, despacha una acción aquí, si existe
-          // Ejemplo: this.store.dispatch(ocultarCartas());
         }
       } catch (e) {
         console.error('Error parseando cartasReveladas en storage event', e);
@@ -252,12 +252,12 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
       this.activarAnimacionYResumen(timestamp);
     }
   }
+
   guardarUsuario({ nombre, modo }: { nombre: string; modo: string }) {
     console.log('[guardarUsuario] llamado con', nombre, modo);
 
     const yaExiste = this.usuariosSnapshot.some((u) => u.nombre === nombre);
     if (yaExiste) {
-      this.mensajeEmergenteService.mostrar('Ese nombre ya está en uso');
       return;
     }
 
@@ -294,7 +294,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
     this.store.dispatch(reiniciarCartas({ nombrePartida: this.nombrePartida }));
     this.store.dispatch(
       reiniciarCartasUsuarios({ nombrePartida: this.nombrePartida })
-    ); // ← 💥 Esta es clave
+    );
 
     this.reiniciarSeleccion = Date.now();
     localStorage.setItem(
@@ -308,14 +308,12 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
   }
 
   contarVotos() {
-    // Guardar timestamp para sincronizar
     const timestamp = Date.now();
     localStorage.setItem(
       `contar-votos:${this.nombrePartida}`,
       timestamp.toString()
     );
 
-    // Ejecutar localmente para el usuario actual también
     this.activarAnimacionYResumen(timestamp);
   }
 

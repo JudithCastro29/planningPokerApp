@@ -44,7 +44,7 @@ export class SeleccionCartasComponent implements OnInit {
       seleccionarCarta({ nombreUsuario: this.usuarioActual.nombre, carta })
     );
 
-    // Emitimos hacia el padre
+    // emitir al padre
     this.cartaSeleccionada.emit(carta);
   }
 }

@@ -21,16 +21,4 @@ export class InputDarkComponent {
 
   @Input() inputId?: string;
   @Input() labelText?: string;
-
-  @Input() estilo: 'default' | 'error' | 'success' = 'default';
-
-  get claseCss(): string {
-    return (
-      {
-        default: 'input-dark',
-        error: 'input-dark input-error',
-        success: 'input-dark input-success',
-      }[this.estilo] || 'input-dark'
-    );
-  }
 }

@@ -17,7 +17,7 @@ export class CartasStorageSyncService {
     const partida = localStorage.getItem('nombre-partida') || '';
     if (!partida) return;
 
-    // 🔁 Sincronizar cartas disponibles
+    //sincronizar cartas disponibles
     if (event.key === `cartas-${partida}` && event.newValue) {
       try {
         const cartas = JSON.parse(event.newValue);
@@ -29,7 +29,7 @@ export class CartasStorageSyncService {
       }
     }
 
-    // 🔁 Sincronizar estado de cartas reveladas
+    // sincronizar estado de cartas reveladas
     if (
       event.key === `cartas-reveladas-${partida}` &&
       event.newValue === 'true'
@@ -37,7 +37,7 @@ export class CartasStorageSyncService {
       this.store.dispatch(revelarCartas());
     }
 
-    // 🔁 Sincronizar visibilidad del resumen
+    // sincronizar visibilidad del resumen
     if (
       event.key === `resumen-visible-${partida}` &&
       event.newValue === 'true'

@@ -98,11 +98,10 @@
 .anillo {
   width: 20px;
   height: 20px;
-  border: 3px solid #8c52ff; /* morado claro */
+  border: 3px solid #8c52ff;
   border-radius: 50%;
-  margin: 0 5px;
-  animation: rebote 1s infinite ease-in-out;
   display: inline-block;
+  animation: cruzar-horizontal 1s ease-in-out 2;
 }
 
 .animacion-conteo .anillo:nth-child(n) {
@@ -128,14 +127,27 @@
   z-index: 100;
 }
 
-@keyframes rebote {
-  0%,
-  100% {
-    transform: translateY(0);
-    opacity: 0.6;
+@keyframes cruzar-horizontal {
+  0% {
+    transform: translateX(-12px);
   }
   50% {
-    transform: translateY(-10px);
-    opacity: 1;
+    transform: translateX(12px);
   }
+  100% {
+    transform: translateX(-12px);
+  }
+}
+
+.animacion-conteo .anillo:nth-child(1) {
+  animation-delay: 2s;
+}
+.animacion-conteo .anillo:nth-child(2) {
+  animation-delay: 2.5s;
+}
+.animacion-conteo .anillo:nth-child(3) {
+  animation-delay: 3s;
+}
+.animacion-conteo .anillo:nth-child(4) {
+  animation-delay: 3.2s;
 }

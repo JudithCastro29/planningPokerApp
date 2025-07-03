@@ -89,7 +89,6 @@ export class FormularioCrearUsuarioComponent implements OnInit {
 
       this.store.dispatch(agregarUsuario({ usuario }));
 
-      // ✅ Emitir evento con nombre y modo
       this.usuarioCreado.emit({
         nombre: datos.nombre!,
         modo: datos.modoVisualizacion!,

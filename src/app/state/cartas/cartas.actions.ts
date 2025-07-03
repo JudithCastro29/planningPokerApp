@@ -1,49 +1,49 @@
 import { createAction, props } from '@ngrx/store';
 import { ModoCartas } from './cartas.state';
 
-// 🧩 Establecer nombre de la partida asociada a las cartas
+// establecer nombre de la partida asociada a las cartas
 export const establecerNombrePartidaCartas = createAction(
   '[Cartas] Establecer Nombre Partida',
   props<{ nombre: string }>()
 );
 
-// 🎴 Establecer modo de las cartas (fibonacci, etc.)
+// establecer modo de las cartas
 export const establecerModoCartas = createAction(
   '[Cartas] Establecer Modo Cartas',
   props<{ modo: ModoCartas; nombrePartida: string }>()
 );
 
-// 🃏 Establecer la lista completa de cartas
+// establecer la lista completa de cartas
 export const establecerCartas = createAction(
   '[Cartas] Establecer Cartas',
   props<{ cartas: string[] }>()
 );
 
-// 👉 Usuario selecciona una carta
+// usuario selecciona una carta
 export const seleccionarCarta = createAction(
   '[Cartas] Seleccionar Carta',
   props<{ nombreUsuario: string; carta: string }>()
 );
 
-// 🔄 Si no hay cartas, generarlas automáticamente
+// si no hay cartas se generan automáticamente
 export const generarCartasSiNoExisten = createAction(
   '[Cartas] Generar Cartas Si No Existen',
   props<{ nombrePartida: string }>()
 );
 
-// 🕵️ Revelar todas las cartas
+// revelar todas las cartas
 export const revelarCartas = createAction('[Cartas] Revelar Cartas');
 
-// 📊 Mostrar resumen de votación
+// mostrar resumen de votación
 export const mostrarResumen = createAction('[Cartas] Mostrar Resumen');
 
-// 🧹 Reiniciar todas las cartas (quitar selección)
+// reiniciar todas las cartas (quitar selección)
 export const reiniciarCartas = createAction(
   '[Cartas] Reiniciar Cartas',
   props<{ nombrePartida: string }>()
 );
 
-// 🔁 Reiniciar todo el estado de cartas
+// reiniciar todo el estado de cartas
 export const reiniciarEstado = createAction('[Cartas] Reiniciar Estado');
 
 //oculktar resumen

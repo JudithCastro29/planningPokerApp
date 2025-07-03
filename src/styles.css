@@ -2,7 +2,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 body {
-  background: #1f0d3f;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    #330072 0%,
+    rgba(31, 13, 63, 0.7) 100%
+  );
   font-family: "Poppins", sans-serif;
   color: #ffffff;
   background-size: cover;

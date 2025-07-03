@@ -11,6 +11,7 @@ import { ButtonDarkComponent } from '../../atoms/button-dark/button-dark.compone
 export class InvitarJugadoresModalComponent {
   @Input() partida = '';
   @Output() cerrar = new EventEmitter<void>();
+
   copiarEnlace(): void {
     const url = `${window.location.origin}/mesa-votacion/${this.partida}`;
     navigator.clipboard.writeText(url).then(() => {

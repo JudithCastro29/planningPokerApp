@@ -1,23 +1,14 @@
-.resumen-votacion {
+.barra-cartas-promedio {
   position: absolute;
-  bottom: 32px;
+  bottom: 2rem;
   left: 0;
   right: 0;
   display: flex;
-  justify-content: center;
-  pointer-events: none; /* permite clics a través si es necesario */
+  justify-content: space-between;
+  align-items: center;
 }
 
-.cartas-votadas-con-promedio {
-  display: flex;
-  align-items: center; /* alinea el promedio abajo como en la imagen */
-  gap: 48px; /* espacio entre cartas y promedio */
-
-  padding: 16px 32px;
-  border-radius: 20px;
-}
-
-.cartas-votadas {
+.bloque-cartas {
   display: flex;
   gap: 24px;
 }
@@ -27,29 +18,38 @@
   color: white;
 }
 
-.carta-resumen .carta {
-  background: rgba(255, 255, 255, 0.1);
+.carta {
+  width: 3rem;
+  height: 5.3rem;
+  border: 1px solid rgba(187, 101, 255, 1);
   padding: 12px 20px;
   border-radius: 12px;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 1.3rem;
+  box-shadow: 0px 5px 10px 0px rgba(100, 41, 205, 0.6);
+  align-items: center;
+  align-content: center;
 }
 
-.carta-resumen .votos {
+.votos {
   margin-top: 6px;
-  font-size: 14px;
-  color: #aaa;
+  font-size: 0.9rem;
+  color: white;
 }
 
-.promedio {
-  font-size: 16px;
-  color: #aaa;
+.bloque-promedio {
   text-align: right;
-  min-width: 120px;
+  transform: translatex(180px);
 }
 
-.promedio strong {
-  font-size: 28px;
-  margin-left: 6px;
+.subtitulo {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 0.25rem;
+}
+
+.bloque-promedio strong {
+  font-size: 2.3rem;
+  font-weight: bold;
   color: white;
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
-import { CommonModule } from '@angular/common'; // ✅ necesario para standalone
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pantalla-principal',

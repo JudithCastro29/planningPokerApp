@@ -17,10 +17,7 @@ import { delegarPropietario } from '../../../state/usuarios/usuario.actions';
 
 import { ButtonDarkComponent } from '../../atoms/button-dark/button-dark.component';
 
-import {
-  establecerModoCartas,
-  reiniciarCartas,
-} from '../../../state/cartas/cartas.actions';
+import { establecerModoCartas } from '../../../state/cartas/cartas.actions';
 
 @Component({
   selector: 'app-admin-modal-controls-component',
@@ -39,7 +36,7 @@ export class AdminModalControlsComponent implements OnChanges {
   @Input() modoActualCartas: 'numeros' | 'letras' = 'numeros';
 
   jugadorSeleccionado: string = '';
-  modoCartas: 'numeros' | 'letras' = 'numeros'; // valor inicial por defecto
+  modoCartas: 'numeros' | 'letras' = 'numeros';
 
   private store = inject(Store<AppState>);
 
@@ -57,7 +54,7 @@ export class AdminModalControlsComponent implements OnChanges {
   }
 
   cambiarModoCartas() {
-    console.log('[Modo seleccionado]', this.modoCartas); // ← debería imprimir 'letras' o 'numeros'
+    console.log('[Modo seleccionado]', this.modoCartas);
 
     if (this.cartasReveladas) {
       alert('Debes reiniciar la partida para cambiar el modo de puntaje');

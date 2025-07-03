@@ -7,11 +7,14 @@ import { provideEffects } from '@ngrx/effects';
 import { appReducer } from './state/app.reducers';
 import { CartasEffects } from './state/cartas/cartas.effects';
 import { UsuariosEffects } from './state/usuarios/usuarios.effects';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideStore(appReducer),
+    provideAnimations(),
 
     provideEffects(CartasEffects, UsuariosEffects),
   ],
