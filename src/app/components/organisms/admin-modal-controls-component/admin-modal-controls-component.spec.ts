@@ -76,7 +76,7 @@ describe('AdminModalControlsComponent', () => {
     component.jugadorSeleccionado = 'Judith';
     component.delegarRol();
     expect(storeDispatchSpy).toHaveBeenCalledWith(
-      delegarPropietario({ actual: 'Lorena', nuevo: 'Judith' })
+      delegarPropietario({ actual: 'lorena', nuevo: 'Judith' })
     );
   });
 
@@ -94,7 +94,7 @@ describe('AdminModalControlsComponent', () => {
     component.modoCartas = 'letras';
     component.cambiarModoCartas();
     expect(storeDispatchSpy).toHaveBeenCalledWith(
-      establecerModoCartas({ modo: 'letras', nombrePartida: 'Partida 1' })
+      establecerModoCartas({ modo: 'letras', nombrePartida: 'Partida1' })
     );
   });
 });

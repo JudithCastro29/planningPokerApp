@@ -19,7 +19,7 @@ import { calcularEstiloJugadorRectangular } from '../../../utils/player-position
     UsuarioEnMesaCarta,
   ],
   templateUrl: './mesa-votacion-template.component.html',
-  styleUrls: ['./mesa-votacion-template.component.css'], // ✅ corregido
+  styleUrls: ['./mesa-votacion-template.component.css'],
 })
 export class MesaVotacionTemplateComponent {
   @Input() usuarioActual!: UsuarioEnMesa;
@@ -42,6 +42,7 @@ export class MesaVotacionTemplateComponent {
 
   getPlayerStyle(index: number): { [key: string]: string } {
     const jugador = this.usuariosEnMesa[index];
+
     return calcularEstiloJugadorRectangular(
       index,
       this.usuariosEnMesa.length,

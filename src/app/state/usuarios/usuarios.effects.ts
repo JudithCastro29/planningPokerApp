@@ -21,7 +21,7 @@ export class UsuariosEffects {
   reiniciarCartas$;
 
   constructor(private actions$: Actions) {
-    // ✅ Guardar usuario actual en localStorage
+    // guardar usuario actual en localStorage
     this.guardarUsuario$ = createEffect(
       () =>
         this.actions$.pipe(
@@ -33,7 +33,7 @@ export class UsuariosEffects {
       { dispatch: false }
     );
 
-    // ✅ Guardar lista de usuarios en localStorage
+    // guardar lista de usuarios en localStorage
     this.guardarUsuariosLista$ = createEffect(
       () =>
         this.actions$.pipe(
@@ -45,7 +45,7 @@ export class UsuariosEffects {
       { dispatch: false }
     );
 
-    // ✅ Actualizar carta del usuario actual en localStorage
+    // actualizar carta del usuario actual en localStorage
     this.actualizarCartaUsuario$ = createEffect(
       () =>
         this.actions$.pipe(
@@ -64,7 +64,7 @@ export class UsuariosEffects {
       { dispatch: false }
     );
 
-    // ✅ Actualizar modo del usuario actual en localStorage
+    // actualizar modo del usuario actual en localStorage
     this.actualizarModoUsuario$ = createEffect(
       () =>
         this.actions$.pipe(
@@ -83,7 +83,7 @@ export class UsuariosEffects {
       { dispatch: false }
     );
 
-    // ✅ Delegar propietario: actualiza lista y usuario actual en localStorage
+    // delegar propietario: actualiza lista y usuario actual en localStorage
     this.delegarPropietario$ = createEffect(
       () =>
         this.actions$.pipe(
@@ -118,7 +118,7 @@ export class UsuariosEffects {
       { dispatch: false }
     );
 
-    // ✅ Reiniciar cartas: limpia solo el campo `carta` de cada jugador
+    // reiniciar cartas limpia la carta de cada jugador
     this.reiniciarCartas$ = createEffect(
       () =>
         this.actions$.pipe(

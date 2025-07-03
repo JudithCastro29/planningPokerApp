@@ -160,7 +160,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
         .subscribe((usuarios) => {
           this.usuariosSnapshot = usuarios;
           this.usuarios$.set(usuarios);
-
+          console.log('Usuarios en mesa actualizados:', this.usuariosSnapshot);
           const actualizado = usuarios.find(
             (u) => u.nombre === this.usuarioActualSnapshot?.nombre
           );

@@ -10,7 +10,7 @@ export function calcularEstiloJugadorRectangular(
     { top: '-50px', left: '50%', transform: 'translate(-50%, -100%)' },
     { top: '-50px', left: '85%', transform: 'translate(-50%, -100%)' },
 
-    // DERECHA (más más afuera)
+    // DERECHA
     {
       top: '50%',
       left: 'calc(100% + 150px)',
@@ -26,7 +26,7 @@ export function calcularEstiloJugadorRectangular(
     // ABAJO izquierda
     { top: 'calc(100% + 50px)', left: '15%', transform: 'translate(-50%, 0%)' },
 
-    // IZQUIERDA (más más afuera)
+    // IZQUIERDA
     { top: '50%', left: '-150px', transform: 'translate(0%, -50%)' },
   ];
 

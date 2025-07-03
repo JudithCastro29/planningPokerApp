@@ -1,58 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MesaVotacionPage } from '../../pages/mesa-votacion-page/mesa-votacion-page.component';
+import { MesaVotacionTemplateComponent } from './mesa-votacion-template.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from '../../../state/app.reducers';
-import { of } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { MensajeEmergenteService } from '../../../services/mensaje-emergente-service/mensaje-emergente-service';
-import { CrearUsuarioModalComponent } from '../../organisms/crear-usuario-modal-component/crear-usuario-modal-component';
-import { InvitarJugadoresModalComponent } from '../../organisms/invitar-jugadores-modal-component/invitar-jugadores-modal-component';
-import { MesaVotacionTemplateComponent } from '../../templates/mesa-votacion-template/mesa-votacion-template.component';
-import { AdminModalControlsComponent } from '../../organisms/admin-modal-controls-component/admin-modal-controls-component';
-import { MensajeEmergenteComponent } from '../../molecules/mensaje-emergente-component/mensaje-emergente-component';
 
-describe('MesaVotacionPage', () => {
-  let component: MesaVotacionPage;
-  let fixture: ComponentFixture<MesaVotacionPage>;
-  let store: Store<AppState>;
-  let mensajeEmergenteService: MensajeEmergenteService;
+describe('MesaVotacionTemplateComponent', () => {
+  let component: MesaVotacionTemplateComponent;
+  let fixture: ComponentFixture<MesaVotacionTemplateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        CommonModule,
-        FormsModule,
-        StoreModule.forRoot({}),
-        MesaVotacionPage,
-        CrearUsuarioModalComponent,
-        InvitarJugadoresModalComponent,
-        MesaVotacionTemplateComponent,
-        AdminModalControlsComponent,
-        MensajeEmergenteComponent,
-      ],
-      providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            params: of({ nombrePartida: 'Partida1' }),
-          },
-        },
-        MensajeEmergenteService,
-        Store,
-      ],
+      imports: [CommonModule, FormsModule, MesaVotacionTemplateComponent], // Solo importa el componente standalone
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MesaVotacionPage);
+    fixture = TestBed.createComponent(MesaVotacionTemplateComponent);
     component = fixture.componentInstance;
-    store = TestBed.inject(Store);
-    mensajeEmergenteService = TestBed.inject(MensajeEmergenteService);
-
-    // Usamos jest.spyOn en lugar de spyOn
-    jest.spyOn(store, 'select').mockReturnValue(of([])); // Simula que el estado de las cartas y usuarios está vacío
-    jest.spyOn(mensajeEmergenteService, 'mostrar').mockImplementation(() => {}); // Es necesario para verificar si se muestra el mensaje
-
     fixture.detectChanges();
   });
 
@@ -60,10 +21,58 @@ describe('MesaVotacionPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('debería llamar al método mostrarAdminModal.set al hacer clic en el botón de administrador', () => {
-    const button =
-      fixture.debugElement.nativeElement.querySelector('.iniciales-boton');
-    button.click();
-    expect(component.mostrarAdminModal()).toBe(true);
+  it('debería devolver un estilo correcto para el jugador', () => {
+    component.usuariosEnMesa = [
+      {
+        modo: 'jugador',
+        carta: '1',
+        nombre: 'Jugador 1',
+        rol: 'jugador',
+        partida: 'Partida1',
+      },
+      {
+        modo: 'espectador',
+        carta: undefined,
+        nombre: 'Espectador',
+        rol: 'espectador',
+        partida: 'Partida1',
+      },
+    ];
+
+    const estilo = component.getPlayerStyle(0);
+    expect(estilo).toHaveProperty('transform');
+  });
+
+  it('debería emitir "reiniciar" cuando se hace clic en el botón de reiniciar', () => {
+    const reiniciarSpy = jest.spyOn(component.reiniciar, 'emit');
+
+    component.esPropietario = true;
+    fixture.detectChanges();
+
+    component.reiniciar.emit();
+    expect(reiniciarSpy).toHaveBeenCalled();
+  });
+
+  it('debería recibir correctamente las cartas y los usuarios', () => {
+    component.cartas = ['1', '2'];
+    component.usuariosEnMesa = [
+      {
+        nombre: 'Jugador 1',
+        carta: '1',
+        modo: 'jugador',
+        rol: 'jugador',
+        partida: 'Partida1',
+      },
+      {
+        nombre: 'Jugador 2',
+        carta: '2',
+        modo: 'jugador',
+        rol: 'jugador',
+        partida: 'Partida1',
+      },
+    ];
+
+    expect(component.cartas).toEqual(['1', '2']);
+    expect(component.usuariosEnMesa.length).toBe(2);
   });
 });

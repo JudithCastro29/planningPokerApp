@@ -8,7 +8,7 @@ describe('SelectorModoVisualizacionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SelectorModoVisualizacionComponent], // standalone
+      imports: [SelectorModoVisualizacionComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SelectorModoVisualizacionComponent);

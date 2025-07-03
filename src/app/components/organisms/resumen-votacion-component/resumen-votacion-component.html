@@ -7,9 +7,10 @@
   </div>
 </div>
 
-<!-- Promedio -->
 <div class="bloque-promedio" *ngIf="promedio !== null">
   <div class="subtitulo">Promedio:</div>
-  <strong *ngIf="typeof promedio === 'number'"> {{ promedio}} </strong>
+  <strong *ngIf="typeof promedio === 'number'">
+    {{ promedio | number: '1.1-1' }}
+  </strong>
   <strong *ngIf="typeof promedio === 'string'"> {{ promedio }} </strong>
 </div>

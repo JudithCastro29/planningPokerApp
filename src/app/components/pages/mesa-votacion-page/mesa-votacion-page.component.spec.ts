@@ -51,7 +51,6 @@ describe('MesaVotacionPage', () => {
       partida: 'PartidaTest',
     };
 
-    // Usamos jest.fn() para espiar el dispatch del store
     const dispatchSpy = jest.spyOn(store, 'dispatch');
 
     component.guardarUsuario({
@@ -59,7 +58,6 @@ describe('MesaVotacionPage', () => {
       modo: nuevoUsuario.modo,
     });
 
-    // Verificamos que dispatch haya sido llamado
     expect(dispatchSpy).toHaveBeenCalled();
   });
 });
