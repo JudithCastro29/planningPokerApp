@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-
+import { Router } from '@angular/router';
 import { AppState } from '../../../state/app.reducers';
 import {
   selectCartas,
@@ -34,6 +34,8 @@ import {
   actualizarCarta,
   actualizarModo,
   agregarUsuario,
+  eliminarUsuario,
+  delegarPropietario,
 } from '../../../state/usuarios/usuario.actions';
 
 import { UsuarioEnMesa } from '../../../models/usuario.model';
@@ -44,10 +46,7 @@ import { MesaVotacionTemplateComponent } from '../../templates/mesa-votacion-tem
 import { AdminModalControlsComponent } from '../../organisms/admin-modal-controls-component/admin-modal-controls-component';
 import { MensajeEmergenteComponent } from '../../molecules/mensaje-emergente-component/mensaje-emergente-component';
 
-import {
-  calcularPromedioVotacion,
-  contarVotosPorCarta,
-} from '../../../utils/calculos-votacion';
+import { contarVotosPorCarta } from '../../../utils/calculos-votacion';
 import { MensajeEmergenteService } from '../../../services/mensaje-emergente-service/mensaje-emergente-service';
 import { generarCartasSiNoExisten } from '../../../state/cartas/cartas.actions';
 import { calcularResumenVotacion } from '../../../utils/calculos-votacion';
@@ -100,8 +99,15 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
   votosPorCarta = computed(() => contarVotosPorCarta(this.usuarios$()));
 
   private subscriptions = new Subscription();
+  private router = inject(Router);
 
   ngOnInit(): void {
+    //limpia ?nombre
+    this.router.navigate([], {
+      queryParams: {},
+      replaceUrl: true,
+    });
+
     //obtiene nombre de la partida
     this.route.params.subscribe((params) => {
       this.nombrePartida = params['nombrePartida'] || '';
@@ -216,11 +222,13 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
 
     // Escuchar eventos storage para sincronización entre pestañas
     window.addEventListener('storage', this.onStorageEvent.bind(this));
+    window.addEventListener('beforeunload', this.handleUnload);
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
     window.removeEventListener('storage', this.onStorageEvent.bind(this));
+    window.removeEventListener('beforeunload', this.handleUnload);
   }
 
   private ultimoConteo = 0;
@@ -259,6 +267,42 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
       this.activarAnimacionYResumen(timestamp);
     }
   }
+  //eliminar usuario cuando cierre la pestaña
+  handleUnload = () => {
+    const usuario = this.usuarioActualSnapshot;
+    if (!usuario) return;
+
+    const esPropietario = usuario.rol === 'propietario';
+    const partida = this.nombrePartida;
+
+    // ceder rol propietario
+    if (esPropietario) {
+      const posiblesCandidatos = this.usuariosSnapshot.filter(
+        (u) =>
+          u.nombre !== usuario.nombre &&
+          u.partida === partida &&
+          u.modo === 'jugador'
+      );
+
+      if (posiblesCandidatos.length > 0) {
+        const nuevoPropietario = posiblesCandidatos[0];
+        this.store.dispatch(
+          delegarPropietario({
+            actual: usuario.nombre,
+            nuevo: nuevoPropietario.nombre,
+          })
+        );
+      }
+    }
+
+    // eliminar al usuario que cierra
+    this.store.dispatch(
+      eliminarUsuario({
+        nombre: usuario.nombre,
+        partida: partida,
+      })
+    );
+  };
 
   //se agrega un nuevo usuario al store
   guardarUsuario({ nombre, modo }: { nombre: string; modo: string }) {

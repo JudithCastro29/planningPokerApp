@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+html,
 body {
   background: radial-gradient(
     50% 50% at 50% 50%,
@@ -12,4 +13,8 @@ body {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
 }

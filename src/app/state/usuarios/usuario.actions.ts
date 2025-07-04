@@ -39,3 +39,8 @@ export const reiniciarCartasUsuarios = createAction(
   '[Usuarios] Reiniciar cartas de los jugadores',
   props<{ nombrePartida: string }>()
 );
+
+export const eliminarUsuario = createAction(
+  '[Usuario] Eliminar Usuario',
+  props<{ nombre: string; partida: string }>()
+);

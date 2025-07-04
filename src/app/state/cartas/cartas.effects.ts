@@ -63,7 +63,7 @@ export class CartasEffects {
 
   private generarCartasAleatorias(): string[] {
     const set = new Set<number>();
-    while (set.size < 10) {
+    while (set.size < 12) {
       set.add(Math.floor(Math.random() * 99) + 1);
     }
     return Array.from(set).map((n) => n.toString());

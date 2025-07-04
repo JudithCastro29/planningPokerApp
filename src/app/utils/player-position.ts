@@ -7,28 +7,28 @@ export function calcularEstiloJugadorRectangular(
 ): { [key: string]: string } {
   const posicionesFijas = [
     // ARRIBA
-    { top: '-50px', left: '50%', transform: 'translate(-50%, -100%)' }, // 0
-    { top: '-50px', left: '20%', transform: 'translate(-50%, -100%)' }, // 1
-    { top: '-50px', left: '80%', transform: 'translate(-50%, -100%)' }, // 2
+    { top: '-10px', left: '50%', transform: 'translate(-50%, -100%)' }, // 0
+    { top: '-10px', left: '20%', transform: 'translate(-50%, -100%)' }, // 1
+    { top: '-10px', left: '80%', transform: 'translate(-50%, -100%)' }, // 2
 
     // DERECHA
     {
       top: '50%',
-      left: 'calc(100% + 150px)',
+      left: 'calc(100% + 100px)',
       transform: 'translate(-100%, -50%)',
     }, // 3
 
     // ABAJO derecha
-    { top: 'calc(100% + 50px)', left: '80%', transform: 'translate(-50%, 0%)' }, // 4
+    { top: 'calc(100% + 10px)', left: '80%', transform: 'translate(-50%, 0%)' }, // 4
 
     // CENTRO ABAJO → propietario
-    { top: 'calc(100% + 50px)', left: '50%', transform: 'translate(-50%, 0%)' }, // 5
+    { top: 'calc(100% + 10px)', left: '50%', transform: 'translate(-50%, 0%)' }, // 5
 
     // ABAJO izquierda
-    { top: 'calc(100% + 50px)', left: '20%', transform: 'translate(-50%, 0%)' }, // 6
+    { top: 'calc(100% + 10px)', left: '20%', transform: 'translate(-50%, 0%)' }, // 6
 
     // IZQUIERDA
-    { top: '50%', left: '-150px', transform: 'translate(0%, -50%)' }, // 7
+    { top: '50%', left: '-60px', transform: 'translate(0%, -50%)' }, // 7
   ];
 
   if (esPropietario) {

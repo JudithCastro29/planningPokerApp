@@ -9,6 +9,7 @@ import {
   actualizarUsuarios,
   reiniciarUsuarios,
   reiniciarCartasUsuarios,
+  eliminarUsuario,
 } from './usuario.actions';
 import { UsuarioEnMesa, RolUsuario } from '../../models/usuario.model';
 
@@ -42,7 +43,6 @@ export const usuarioReducer = createReducer(
     );
     const tienePropietario = enPartida.some((u) => u.rol === 'propietario');
 
-    // ✅ Forzar tipo literal para 'rol'
     const rol: RolUsuario = !tienePropietario
       ? 'propietario'
       : usuario.rol === 'propietario'
@@ -127,19 +127,19 @@ export const usuarioReducer = createReducer(
 
   on(delegarPropietario, (state, { actual, nuevo }) => {
     const actualizados = state.usuarios.map((u) => {
-      if (u.nombre === actual) return { ...u, rol: 'jugador' as const }; // ✅
-      if (u.nombre === nuevo) return { ...u, rol: 'propietario' as const }; // ✅
+      if (u.nombre === actual) return { ...u, rol: 'jugador' as const };
+      if (u.nombre === nuevo) return { ...u, rol: 'propietario' as const };
       return u;
     });
 
     let nuevoUsuarioActual = state.usuarioActual ?? null;
     if (nuevoUsuarioActual?.nombre === actual) {
-      nuevoUsuarioActual = { ...nuevoUsuarioActual, rol: 'jugador' as const }; // ✅
+      nuevoUsuarioActual = { ...nuevoUsuarioActual, rol: 'jugador' as const };
     } else if (nuevoUsuarioActual?.nombre === nuevo) {
       nuevoUsuarioActual = {
         ...nuevoUsuarioActual,
         rol: 'propietario' as const,
-      }; // ✅
+      };
     }
 
     if (nuevoUsuarioActual) guardarUsuarioActual(nuevoUsuarioActual);
@@ -198,6 +198,27 @@ export const usuarioReducer = createReducer(
     return {
       usuarios: [],
       usuarioActual: null,
+    };
+  }),
+
+  on(eliminarUsuario, (state, { nombre, partida }) => {
+    const usuariosFiltrados = state.usuarios.filter(
+      (u) => !(u.nombre === nombre && u.partida === partida)
+    );
+
+    const esUsuarioActual =
+      state.usuarioActual?.nombre === nombre &&
+      state.usuarioActual?.partida === partida;
+
+    if (esUsuarioActual) {
+      limpiarUsuarioActual();
+    }
+    guardarUsuarios(usuariosFiltrados, partida);
+
+    return {
+      ...state,
+      usuarios: usuariosFiltrados,
+      usuarioActual: esUsuarioActual ? null : state.usuarioActual,
     };
   })
 );

@@ -15,7 +15,7 @@
 
 .nombre-partida {
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   text-align: center;
   font-family: "Poppins";
 }
@@ -65,13 +65,9 @@
   cursor: not-allowed;
 }
 
-@media (max-width: 375px) {
-  .barra-superior {
-    padding: 0.8rem 1.5rem;
-  }
-
+@media (max-width: 390px) {
   .nombre-partida {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .iniciales-boton {

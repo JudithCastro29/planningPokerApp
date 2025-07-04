@@ -6,10 +6,10 @@ function generarCartasAleatorias(modo: CartasState['modoCartas']): string[] {
   if (modo === 'letras') {
     const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     const mezcladas = letras.sort(() => Math.random() - 0.5);
-    return mezcladas.slice(0, 10);
+    return mezcladas.slice(0, 12);
   } else {
     const set = new Set<number>();
-    while (set.size < 10) {
+    while (set.size < 12) {
       set.add(Math.floor(Math.random() * 99) + 1);
     }
     return Array.from(set).map((n) => n.toString());
