@@ -47,7 +47,8 @@ export class MesaVotacionTemplateComponent {
       index,
       this.usuariosEnMesa.length,
       jugador.nombre,
-      jugador.rol === 'propietario'
+      jugador.rol === 'propietario',
+      this.usuariosEnMesa
     );
   }
 

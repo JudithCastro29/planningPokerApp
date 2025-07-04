@@ -119,7 +119,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
         }
       });
 
-      // carga modo
+      // caraga modo
       const modoGuardado = localStorage.getItem(
         `modo-cartas-${this.nombrePartida}`
       ) as 'numeros' | 'letras' | null;
@@ -391,7 +391,17 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
     this.cartasReveladas$.subscribe((c) => (reveladas = c)).unsubscribe();
     return reveladas;
   }
+  get esPropietario(): boolean {
+    return this.usuarioActualSnapshot?.rol === 'propietario';
+  }
 
+  abrirModalSiEsPropietario(): void {
+    if (this.esPropietario) {
+      this.mostrarInvitarModal.set(true);
+    } else {
+      alert('Solo el propietario puede invitar jugadores.');
+    }
+  }
   //conteo lleva a mostrar resumen
   animandoConteo$ = this.mostrarResumen$;
 }

@@ -9,7 +9,11 @@
     <button class="iniciales-boton" (click)="mostrarAdminModal.set(true)">
       {{ inicialesPropietario }}
     </button>
-    <button class="btn-invitar" (click)="mostrarInvitarModal.set(true)">
+    <button
+      class="btn-invitar"
+      [ngClass]="{ opaco: !esPropietario }"
+      (click)="abrirModalSiEsPropietario()"
+    >
       Invitar jugadores
     </button>
   </div>
