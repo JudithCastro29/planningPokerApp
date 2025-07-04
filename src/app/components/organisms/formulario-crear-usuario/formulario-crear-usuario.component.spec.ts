@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { MesaVotacionTemplateComponent } from '../../templates/mesa-votacion-template/mesa-votacion-template.component';
 import { UsuarioEnMesa } from '../../../models/usuario.model';
-
+import { provideMockStore } from '@ngrx/store/testing';
 describe('MesaVotacionTemplateComponent', () => {
   let component: MesaVotacionTemplateComponent;
   let fixture: ComponentFixture<MesaVotacionTemplateComponent>;
@@ -34,12 +34,13 @@ describe('MesaVotacionTemplateComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MesaVotacionTemplateComponent],
+      providers: [provideMockStore({ initialState: {} })],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MesaVotacionTemplateComponent);
     component = fixture.componentInstance;
 
-    component.usuarioActual = mockUsuarios[0]; // Alice (propietaria)
+    component.usuarioActual = mockUsuarios[0];
     component.usuariosEnMesa = mockUsuarios;
     component.cartas = ['1', '2', '3', '5', '8'];
     component.cartasReveladas = false;

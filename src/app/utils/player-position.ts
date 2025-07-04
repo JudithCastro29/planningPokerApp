@@ -29,8 +29,6 @@ export function calcularEstiloJugadorRectangular(
 
     // IZQUIERDA (más más afuera)
     { top: '50%', left: '-150px', transform: 'translate(0%, -50%)' },
-
-    { top: '-50px', left: '50%', transform: 'translate(-50%, -100%)' },
   ];
 
   const indexFinal = esPropietario ? 5 : index >= 5 ? index + 1 : index;

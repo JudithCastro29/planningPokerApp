@@ -7,6 +7,7 @@ describe('InvitarJugadoresModalComponent', () => {
   let fixture: ComponentFixture<InvitarJugadoresModalComponent>;
 
   beforeEach(async () => {
+    window.alert = jest.fn(); //mock
     await TestBed.configureTestingModule({
       imports: [InvitarJugadoresModalComponent],
     }).compileComponents();

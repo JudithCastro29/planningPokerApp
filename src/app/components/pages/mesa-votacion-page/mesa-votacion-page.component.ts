@@ -80,6 +80,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
   mensajeTodosHanVotado = false;
   reiniciarSeleccion = Date.now();
 
+  //selectores NgRx
   cartas$ = this.store.select(selectCartas);
   cartasReveladas$ = this.store.select(selectCartasReveladas);
   mostrarResumen$ = this.store.select(selectResumenVisible);
@@ -101,19 +102,24 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
 
   ngOnInit(): void {
+    //obtiene nombre de la partida
     this.route.params.subscribe((params) => {
       this.nombrePartida = params['nombrePartida'] || '';
       localStorage.setItem('nombre-partida', this.nombrePartida);
 
+      // si no hay cartas para esta partida las genera
       this.store.dispatch(
         generarCartasSiNoExisten({ nombrePartida: this.nombrePartida })
       );
+
+      //cartas listas
       this.cartas$.subscribe((cartas) => {
         if (cartas.length > 0) {
           this.cartasListas.set(true);
         }
       });
 
+      // carga modo
       const modoGuardado = localStorage.getItem(
         `modo-cartas-${this.nombrePartida}`
       ) as 'numeros' | 'letras' | null;
@@ -154,7 +160,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
         }
       }
 
-      // Suscribirse a usuarios de la partida
+      // suscribirse a usuarios de la partida
       const usuariosSub = this.store
         .select(selectUsuariosEnPartidaPorNombre(this.nombrePartida))
         .subscribe((usuarios) => {
@@ -226,7 +232,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
       if (nuevoValor !== this.reiniciarSeleccion) {
         this.reiniciarSeleccion = nuevoValor;
 
-        //jecuta el reinicio también en esta pestaña
+        //ejecuta el reinicio también en esta pestaña
         this.store.dispatch(
           reiniciarCartas({ nombrePartida: this.nombrePartida })
         );
@@ -235,6 +241,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
         localStorage.removeItem('todos-han-votado:' + this.nombrePartida);
         localStorage.setItem(`cartas-reveladas:${this.nombrePartida}`, 'false');
       }
+      // cartas reveladas
     } else if (event.key === `cartas-reveladas:${this.nombrePartida}`) {
       try {
         const reveladas = JSON.parse(event.newValue ?? 'false');
@@ -244,7 +251,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
         }
       } catch (e) {
         console.error('Error parseando cartasReveladas en storage event', e);
-      }
+      } //si todos han votado pasa esto, se cuentan los votos
     } else if (event.key === `contar-votos:${this.nombrePartida}`) {
       const timestamp = Number(event.newValue);
       if (!timestamp || timestamp === this.ultimoConteo) return;
@@ -253,6 +260,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
     }
   }
 
+  //se agrega un nuevo usuario al store
   guardarUsuario({ nombre, modo }: { nombre: string; modo: string }) {
     console.log('[guardarUsuario] llamado con', nombre, modo);
 
@@ -276,6 +284,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
     this.mostrarModal.set(false);
   }
 
+  //el jugador selecciono una carta
   manejarCartaSeleccionada(carta: string) {
     const usuario = this.usuarioActualSnapshot;
     if (!usuario) return;
@@ -286,10 +295,13 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
     }
   }
 
+  //
+
   revelarCartas() {
     this.store.dispatch(revelarCartas());
   }
 
+  // reinicar tanto votos como cartas
   reiniciarPartida() {
     this.store.dispatch(reiniciarCartas({ nombrePartida: this.nombrePartida }));
     this.store.dispatch(
@@ -307,6 +319,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
     localStorage.setItem(`cartas-reveladas:${this.nombrePartida}`, 'false');
   }
 
+  //contar votos, lleva a la animacion y el resumen
   contarVotos() {
     const timestamp = Date.now();
     localStorage.setItem(
@@ -316,7 +329,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
 
     this.activarAnimacionYResumen(timestamp);
   }
-
+  // animación + resumen
   private activarAnimacionYResumen(timestamp: number) {
     this.animandoConteo.set(true);
 
@@ -326,6 +339,7 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
     }, 3000);
   }
 
+  //cambiar entre espectador o jugador
   onCambiarModo() {
     const usuario = this.usuarioActualSnapshot;
     if (!usuario) return;
@@ -378,5 +392,6 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
     return reveladas;
   }
 
+  //conteo lleva a mostrar resumen
   animandoConteo$ = this.mostrarResumen$;
 }

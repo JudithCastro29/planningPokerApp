@@ -58,7 +58,7 @@ export class MesaVotacionTemplateComponent {
       ) && !this.cartasReveladas
     );
   }
-
+  //para el efecto de anillos separados
   getEstiloAnillo(index: number): { [key: string]: string } {
     switch (index) {
       case 0:

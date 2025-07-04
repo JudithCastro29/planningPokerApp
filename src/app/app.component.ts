@@ -5,6 +5,7 @@ import { CartasStorageSyncService } from './state/cartas/cartas-storage-sync.ser
 import { PartidaStorageSyncService } from './state/partida/partida-storage-sync.service';
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

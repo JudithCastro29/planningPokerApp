@@ -60,4 +60,33 @@ describe('MesaVotacionPage', () => {
 
     expect(dispatchSpy).toHaveBeenCalled();
   });
+
+  it('debería cambiar el modo del usuario actual', () => {
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
+
+    component['usuarioActualSnapshot'] = {
+      nombre: 'usuario1',
+      modo: 'jugador',
+      rol: 'jugador',
+      partida: 'PartidaTest',
+    };
+
+    component.onCambiarModo();
+
+    expect(dispatchSpy).toHaveBeenCalledWith({
+      type: '[Usuarios] Actualizar Modo',
+      nombre: 'usuario1',
+      modo: 'espectador',
+    });
+  });
+
+  it('debería revelar cartas al llamar revelarCartas()', () => {
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
+
+    component.revelarCartas();
+
+    expect(dispatchSpy).toHaveBeenCalledWith({
+      type: '[Cartas] Revelar Cartas',
+    });
+  });
 });

@@ -42,7 +42,6 @@ describe('SelectorModoVisualizacionComponent', () => {
   });
 
   it('debería llamar a onChange y onTouched al seleccionar una opción', () => {
-    // se llaman? con que modo o valo ?
     const onChangeSpy = jest.fn();
     const onTouchedSpy = jest.fn();
 

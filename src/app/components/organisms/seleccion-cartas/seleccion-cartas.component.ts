@@ -24,8 +24,7 @@ export class SeleccionCartasComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    // reset selección local si se reinicia desde fuera
-    this.cartaSeleccionadaLocal = null;
+    this.cartaSeleccionadaLocal = null; //inicializa
   }
 
   elegirCarta(carta: string) {
@@ -39,12 +38,10 @@ export class SeleccionCartasComponent implements OnInit {
 
     this.cartaSeleccionadaLocal = carta;
 
-    // Despacho local solo si lo necesitas
     this.store.dispatch(
       seleccionarCarta({ nombreUsuario: this.usuarioActual.nombre, carta })
     );
 
-    // emitir al padre
     this.cartaSeleccionada.emit(carta);
   }
 }

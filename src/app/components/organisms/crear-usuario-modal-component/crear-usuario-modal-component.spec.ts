@@ -26,8 +26,8 @@ describe('CrearUsuarioModalComponent', () => {
 
   it('debería emitir usuarioCreado al manejarUsuarioCreado()', () => {
     const spy = jest.spyOn(component.usuarioCreado, 'emit');
-    component.manejarUsuarioCreado({ nombre: 'Ana', modo: 'jugador' });
-    expect(spy).toHaveBeenCalledWith({ nombre: 'Ana', modo: 'jugador' });
+    component.manejarUsuarioCreado({ nombre: 'lorena', modo: 'jugador' });
+    expect(spy).toHaveBeenCalledWith({ nombre: 'lorena', modo: 'jugador' });
   });
 
   it('debería emitir cerrar al llamar cerrarModal()', () => {

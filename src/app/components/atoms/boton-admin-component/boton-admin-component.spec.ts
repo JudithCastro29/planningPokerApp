@@ -31,7 +31,7 @@ describe('BotonAdminComponent', () => {
     expect(button.disabled).toBe(true);
   });
 });
-
+//simulo contenido
 describe('BotonAdminComponent con contenido dentro', () => {
   @Component({
     template: `<app-boton-admin-component

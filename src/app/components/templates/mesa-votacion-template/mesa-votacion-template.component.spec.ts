@@ -26,7 +26,7 @@ describe('MesaVotacionTemplateComponent', () => {
       {
         modo: 'jugador',
         carta: '1',
-        nombre: 'Jugador 1',
+        nombre: 'Lorena1',
         rol: 'jugador',
         partida: 'Partida1',
       },
@@ -57,14 +57,14 @@ describe('MesaVotacionTemplateComponent', () => {
     component.cartas = ['1', '2'];
     component.usuariosEnMesa = [
       {
-        nombre: 'Jugador 1',
+        nombre: 'Lorena1',
         carta: '1',
         modo: 'jugador',
         rol: 'jugador',
         partida: 'Partida1',
       },
       {
-        nombre: 'Jugador 2',
+        nombre: 'Maria2',
         carta: '2',
         modo: 'jugador',
         rol: 'jugador',

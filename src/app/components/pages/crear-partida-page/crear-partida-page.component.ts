@@ -21,17 +21,17 @@ export class CrearPartidaPageComponent implements OnInit {
   constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit(): void {
-    // Limpiar estado de usuarios y cartas
+    // limpia estado de usuarios y cartas cuando se recarga la pagina
     this.store.dispatch(reiniciarUsuarios());
 
     this.store.dispatch(reiniciarCartasEstado());
   }
 
   onPartidaCreada(nombrePartida: string): void {
-    // Guardar nombre de partida en el store global
+    // guardar nombre de partida en el store global
     this.store.dispatch(establecerNombrePartida({ nombre: nombrePartida }));
 
-    // Redirigir a la mesa
+    // redirigir a la mesa
     this.router.navigate(['/mesa-votacion', nombrePartida]);
   }
 }

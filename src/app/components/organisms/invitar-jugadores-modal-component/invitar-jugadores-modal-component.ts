@@ -15,6 +15,7 @@ export class InvitarJugadoresModalComponent {
   copiarEnlace(): void {
     const url = `${window.location.origin}/mesa-votacion/${this.partida}`;
     navigator.clipboard.writeText(url).then(() => {
+      // api para copiar el texto
       alert('¡Enlace copiado al portapapeles!');
     });
   }

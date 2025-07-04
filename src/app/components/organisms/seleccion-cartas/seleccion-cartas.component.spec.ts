@@ -19,7 +19,7 @@ describe('SeleccionCartasComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SeleccionCartasComponent],
-      providers: [provideMockStore()],
+      providers: [provideMockStore({ initialState: {} })],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SeleccionCartasComponent);
