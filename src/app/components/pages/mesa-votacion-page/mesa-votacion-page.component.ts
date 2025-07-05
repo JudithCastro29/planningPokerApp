@@ -442,8 +442,6 @@ export class MesaVotacionPage implements OnInit, OnDestroy {
   abrirModalSiEsPropietario(): void {
     if (this.esPropietario) {
       this.mostrarInvitarModal.set(true);
-    } else {
-      alert('Solo el propietario puede invitar jugadores.');
     }
   }
   //conteo lleva a mostrar resumen

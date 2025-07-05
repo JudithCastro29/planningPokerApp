@@ -1,48 +1,46 @@
-<div class="modal-content">
-  <h2>Configuración de rol</h2>
+<!-- Modal completo con overlay -->
+<div class="modal-overlay">
+  <div class="modal-content">
+    <h2>Configuración de rol</h2>
 
-  <!-- mensaje para probar rol y modo -->
-  <p class="mensaje-usuario" *ngIf="usuarioActual">
-    Hola {{ usuarioActual.nombre }}, actualmente tu rol es de
-    <strong>{{ usuarioActual.rol }}</strong>
-    e ingresaste con el modo
-    <strong>{{ usuarioActual.modo }}</strong>.
-  </p>
+    <p class="mensaje-usuario" *ngIf="usuarioActual">
+      Hola {{ usuarioActual.nombre }}, actualmente tu rol es de
+      <strong>{{ usuarioActual.rol }}</strong>
+      e ingresaste con el modo
+      <strong>{{ usuarioActual.modo }}</strong>.
+    </p>
 
-  <!-- select de jugadores para delegar rol -->
-  <div *ngIf="usuarioActual?.rol === 'propietario'">
-    <label for="delegar">Delegar rol de propietario:</label>
-    <select id="delegar" [(ngModel)]="jugadorSeleccionado">
-      <option *ngFor="let jugador of jugadores" [value]="jugador.nombre">
-        {{ jugador.nombre }}
-      </option>
-    </select>
-    <button (click)="delegarRol()">Delegar</button>
-
-    <!--  select para cambiar modo de cartas -->
-    <div class="modo-cartas-select">
-      <label for="modoCartas">Modo de cartas:</label>
-      <select
-        id="modoCartas"
-        [(ngModel)]="modoCartas"
-        (change)="cambiarModoCartas()"
-      >
-        <option value="numeros">Números</option>
-        <option value="letras">Letras</option>
+    <div *ngIf="usuarioActual?.rol === 'propietario'">
+      <label for="delegar">Delegar rol de propietario:</label>
+      <select id="delegar" [(ngModel)]="jugadorSeleccionado">
+        <option *ngFor="let jugador of jugadores" [value]="jugador.nombre">
+          {{ jugador.nombre }}
+        </option>
       </select>
+      <button (click)="delegarRol()">Delegar</button>
+
+      <div class="modo-cartas-select">
+        <label for="modoCartas">Modo de cartas:</label>
+        <select
+          id="modoCartas"
+          [(ngModel)]="modoCartas"
+          (change)="cambiarModoCartas()"
+        >
+          <option value="numeros">Números</option>
+          <option value="letras">Letras</option>
+        </select>
+      </div>
     </div>
-  </div>
 
-  <!-- cambiar modo de visualización -->
-  <div class="contenedor-button">
-    <app-button-dark
-      *ngIf="usuarioActual?.modo"
-      [texto]="usuarioActual.modo === 'jugador' ? 'Cambiar a espectador' : 'Cambiar a jugador'"
-      [tipo]="'button'"
-      (click)="emitirCambioModo()"
-    ></app-button-dark>
-  </div>
+    <div class="contenedor-button">
+      <app-button-dark
+        *ngIf="usuarioActual?.modo"
+        [texto]="usuarioActual.modo === 'jugador' ? 'Cambiar a espectador' : 'Cambiar a jugador'"
+        [tipo]="'button'"
+        (click)="emitirCambioModo()"
+      ></app-button-dark>
+    </div>
 
-  <!--cerrar el modal-->
-  <button (click)="cerrarModal()">Cerrar</button>
+    <button (click)="cerrarModal()">Cerrar</button>
+  </div>
 </div>
